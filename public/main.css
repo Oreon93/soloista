@@ -1,0 +1,417 @@
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Open Sans';
+  font-weight: bold;
+}
+
+
+
+p, li {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.page-body {
+  margin-top: 60px;
+}
+
+.top-nav {
+  padding-top: 20px;
+}
+
+.navbar-brand {
+  font-family: 'Poiret One', cursive;
+  letter-spacing: 2px;
+}
+
+.nav-link {
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  letter-spacing: 1px;
+  font-weight: 400;
+  color: #333;
+}
+
+.nav-item.active a {
+  font-weight: bold;
+}
+
+.btn {
+  vertical-align: middle;
+  border-radius: 0;
+}
+
+.bg-primary {
+  background-color: #7D70BA!important;
+}
+
+.btn-outline-primary {
+  border-color: #ff4b2b!important;
+  color: #ff4b2b!important;
+  box-shadow: none!important;
+  text-transform: uppercase;
+}
+
+.btn-outline-primary:hover {
+  color: #fff!important;
+  background-color: #ff4b2b!important;
+}
+
+.btn-outline-info {
+  border-color: #3D93B0!important;
+  color: #3D93B0!important;
+  text-transform: uppercase;
+}
+
+.btn-outline-info:hover {
+  color: #fff!important;
+  background-color: #3D93B0!important;
+}
+
+.btn-outline-white {
+  border-color: #fff!important;
+  color: #fff!important;
+  box-shadow: none!important;
+  text-transform: uppercase;
+  background: none;
+}
+
+
+.btn-secondary {
+  background-color: #efeeff;
+  border: none;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.9rem 1.1rem;
+  color: #ff4b2b;
+  box-shadow: none;
+}
+
+.btn-white {
+  background-color: #efeeff;
+  border: none;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.9rem 1.1rem;
+  color: #ff4b2b;
+  box-shadow: none;
+}
+
+.bg-warning {
+  background-color: #EA3546!important;
+}
+
+.btn-primary {
+  background-color: #7D70BA!important;
+  border-color: #7D70BA!important;
+}
+
+.text-primary {
+  color: #7D70BA!important;
+}
+
+.home-banner {
+  color: #FFF;
+  padding: 250px 0;
+  margin-bottom: 0;
+}
+
+.home-banner h1 {
+  font-size: 2.8em;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+
+.home-banner p {
+  margin-bottom: 35px;
+}
+
+.home-primary-btn {
+  background: -webkit-linear-gradient(to right, #ff416c, #ff4b2b); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  border: 0px;
+  border-radius: 20px!important;
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.4);
+  font-size: 0.95em;
+  padding: 0.9rem 1.1rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.primary-background {
+  background: -webkit-linear-gradient(to right, #ff416c, #ff4b2b); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  color: #fff;
+}
+
+.primary-background h2, .primary-background p {
+  color: #fff;
+}
+
+.one-line-section {
+  color: #fff;
+}
+
+.one-line-section p {
+  margin: 0 auto;
+  display: inline;
+}
+
+.one-line-section a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.section-block {
+  padding: 60px 0px;
+}
+
+.section-block.wavy-top {
+  padding: 120px 0px 60px 0px;
+}
+
+
+.btn-block {
+  margin-top: 30px;
+  font-weight: 500;
+  /* text-transform: uppercase; */
+  font-size: 1.1em;
+  padding: 10px;
+}
+
+a {
+  color: #ff4b2b;
+}
+
+.one-line-section .fas, .one-line-section .fa {
+  margin-right: 5px;
+  display: inline;
+  font-size: 1.3em;
+}
+
+.tick li {
+  background-image: url("check.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding-left: 45px;
+  list-style: none;
+  margin-bottom: 25px;
+}
+
+.tick {
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-padding-start: 0;
+  margin-bottom: 20px;
+}
+
+.square-box {
+  position: relative;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.square-box:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.square-box img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.counter-round {
+  padding: 15px;
+  background-color: #efeeff;
+  font-size: 1.3em;
+  display: inline-block;
+  border-radius: 40px;
+  line-height: 0.5em;
+  color: #7b6d6a;
+  font-weight: 700;
+}
+
+.cover-text {
+  color: #333!important
+}
+
+.cover-text b {
+  font-weight: bold;
+}
+
+/* Room listings */
+.room-listing a {
+  transition: opacity 0.5s;
+  color: #333;
+}
+
+.room-listing a:hover {
+  opacity:0.5;
+  text-decoration: none;
+}
+
+.room-listing a:hover h3 {
+  text-decoration: underline!important;
+}
+
+.room-listing h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.room-listing .price {
+  font-size: 1.4rem;
+  color: #555;
+  margin-bottom: 0;
+  line-height: 1.4rem;
+}
+
+.room-listing .unit {
+  font-size: 0.8rem;
+}
+
+.room-listing .review {
+  float: right;
+  color: #ff4b2b;
+}
+
+.img-thumbnail {
+  border: none;
+  border-radius: 8px;
+}
+
+/* Individual rooms */
+
+.full-feature {
+  height: 600px;
+  width: 100%
+}
+
+.room-location {
+  font-size: 1.3rem;
+}
+
+.time-slot {
+  text-align: center;
+  margin: 1px;
+  padding: 5px;
+  background-color: #efeeff;
+  border: none;
+  width: 100%;
+  transition: background-color 0.5s;
+  display: block;
+}
+
+.time-slot:hover {
+  background-color: #5a6268;
+  color: #fff;
+  cursor: pointer;
+}
+
+.time-slot.disabled {
+  pointer-events:none;
+  background-color: #f7f6ff;
+  color: #bbb;
+}
+
+.same-line {
+  display: inline;
+}
+
+.review-list {
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #efeeff;
+  margin: 10px 0px;
+}
+
+.review-list .rating, .room-info .rating {
+  color: #ff4b2b;
+  display: inline;
+}
+
+.review-list .review {
+  margin-bottom: 0px;
+}
+
+.review-list .author {
+  display: inline;
+  font-size: 1.3rem;
+  color: #555;
+  font-weight: 700;
+}
+
+/* Login form styles */
+
+.login-form {
+  color: #fff;
+  font-size: 1em;
+  margin: 30px 0px 140px 0px;
+}
+
+.register-form {
+  color: #333;
+  font-size: 1em;
+}
+
+.login-input {
+  background: none;
+  border: none;
+  border-radius: 0;
+  font-size: 1.2em;
+  line-height: 1.5em;
+  border-bottom: 2px solid #fff;
+  padding: 0.6em 0.8em 0.3em 0.8em;
+  width: 100%;
+  font-weight: 600;
+  transition: border-bottom-color 0.4s;
+  margin: 10px 0px;
+}
+
+.register-form .login-input {
+  border-bottom: 2px solid #555;
+}
+
+.login-input:focus {
+  outline: none;
+  border-bottom-color: #ff4b2b;
+}
+
+.login-input:focus::placeholder {
+  opacity: 0;
+}
+
+.login-input::placeholder {
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8em;
+}
+
+.register-form .login-input::placeholder {
+  color: #555;
+}
+
+.overlap {
+  margin-top: -40px;
+}
+
+.no-account {
+  font-weight: 600;
+  color: #555;
+  margin-right: 15px;
+}
+
+.sign-up-text {
+  font-weight: 600;
+  color: #555;
+  margin-top: 15px;
+}

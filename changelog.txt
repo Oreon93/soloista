@@ -1,0 +1,16 @@
+Booking system
+- added new "booking" model
+- added book route
+
+Bitty to do:
+- fix "error" path on /book when someone tries to book a slot already taken
+- 
+
+
+
+
+<% if (bookings.indexOf(i+8) == -1) { %>
+<button class="time-slot"><%=  i + 8 + ":00" %></button>
+<% } else { %>
+<button disabled class="time-slot"><%=  i + 8 + ":00" %></button>
+<% } %>

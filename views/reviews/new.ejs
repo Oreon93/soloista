@@ -1,0 +1,21 @@
+<% include ../partials/header %>
+<section class="section-block container">
+  <div class="col-6 mx-auto">
+    <h1 class="text-center pb-3">Add a new review<h1>
+
+    <form  method="POST" action="/rooms/<%= room.id %>/reviews">
+      <div class="form-row form-group">
+          <input class="form-control" type="text" placeholder="Author" name="review[author]">
+      </div>
+      <div class="form-row form-group">
+        <textarea class="form-control" type="text" placeholder="Your review" name="review[text]"></textarea>
+      </div>
+      <div class="form-row form-group">
+        <input class="form-control" type="number" placeholder="Rating out of 5" name="review[rating]" min="1" max="5">
+      </div>
+      <button style="display: block; margin: 0 auto" class="btn btn-submit btn-secondary" type="submit">Add new review</button>
+    </form>
+  </div>
+</section>
+
+<% include ../partials/footer %>

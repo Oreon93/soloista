@@ -1,0 +1,112 @@
+<% include ../partials/header %>
+<section class="container section-block">
+  <div class="row">
+    <div class="col-lg-3">
+      <p>Room availabe on:</p>
+      <h2><%= dateQuery %></h2>
+      <p>Price per hour:</p>
+      <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+      <p>Features</p>
+      <input type="checkbox" name="uprightpiano" value="Upright piano">Upright piano<br>
+      <input type="checkbox" name="grandpiano" value="Grand piano">Grand piano<br>
+      <input type="checkbox" name="amplifier" value="Amplifier">Amplifier<br>
+      <input type="checkbox" name="musicstand" value="Music stand">Music stand<br>
+      <input type="checkbox" name="organ" value="Organ">Organ<br>
+    </div>
+    <div class="col-lg-9">
+    <% rooms.forEach(function(room) { %>
+      <div class="row room-listing">
+        <div class="col-4">
+          <a class="room-link" href="/rooms/<%= room.id %>">
+            <img id="<%= room.name %>" class="img-thumbnail" src="/static/images/rooms/<%= room.picture%>">
+          </a>
+        </div>
+        <div class="col-8">
+          <div class="row d-flex justify-content-between">
+            <div class="main-room-info">
+              <h3 class="room-name"><%= room.name %></h3>
+              <p class="review"><span class="rating"><%
+                var total_rating = 0;
+                room.reviews.forEach(function(review) {
+                  total_rating += review.rating;
+                });
+                var average = total_rating / room.reviews.length;
+                for (i=0; i<average; i++) { %>★<% } %>
+              </span></p>
+            </div>
+            <div class="price">
+              <p class="price">€<%= room.price_per_hour %><% if ((room.price_per_hour*10)%10 !== 0) {%>0<% } %></p>
+              <p class="unit"> per hour</p>
+            </div>
+          </div>
+          <div class="row">
+            <p><%= room.description %></p>
+            <div class="row">
+              <% for (i=0; i<12; i++) { %>
+              <div class="col-3">
+                <% var roomBookings = bookings.find(function(booking) {
+                  return booking.id == room._id;
+                });
+                if (roomBookings.bookings.indexOf(i+8) == -1) {
+                  if (currentUser) { %>
+                <form id="<%= i %>" action="/rooms/<%= room.id %>/book/<%= i + 8 %>" method="POST">
+                  <button type="submit" class="time-slot"><%=  i + 8 + ":00" %></button>
+                </form>
+                <% } else { %>
+                <a id="<%= room.id + (i + 10) %>" class="time-slot enabled"> <%=  i + 8 + ":00" %></a>
+                <% }
+                } else { %>
+                <div class="time-slot disabled"><%=  i + 8 + ":00" %></div>
+                <% } %>
+              </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+    </div>
+  </div>
+
+
+<div class="modal fade">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</section>
+<script>
+$(document).ready(function(){
+    $(".time-slot.enabled").click(function(event) {
+      var id = event.target.id.substring(0, event.target.id.length - 2);
+      var time = parseInt(event.target.id.substring(event.target.id.length - 2)) - 2;
+
+      $.ajax({
+        type: "POST",
+        url: "/loginmodal",
+        data: {id: id, time: time},
+        success: function(data) {
+        $(".modal").modal();
+        $(".modal-body").html(data);
+        console.log(data);
+      }});
+    });
+});
+</script>
+<% include ../partials/footer %>

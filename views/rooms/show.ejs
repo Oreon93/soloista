@@ -1,0 +1,57 @@
+<% include ../partials/header %>
+<section class="container section-block">
+<div class="row">
+  <div class="col-7">
+    <img class="img-fluid" src="/static/images/rooms/<%= room.picture %>">
+  </div>
+  <div class="col-5 d-flex flex-column room-info">
+    <h1><%= room.name %></h1>
+    <p class="room-location"><%= room.location %></p>
+    <p><span class="rating"><%
+      var total_rating = 0;
+      room.reviews.forEach(function(review) {
+        total_rating += review.rating;
+      });
+      var average = total_rating / room.reviews.length;
+      for (i=0; i<average; i++) { %>★<% } %>
+    </span>
+    (<%= room.reviews.length %> review<% if (room.reviews.length !== 1) { %>s<% } %>)</p>
+    <p><%= room.description %></p>
+    <div class="row">
+      <% for (i=0; i<12; i++) { %>
+      <div class="col-3">
+        <% if (bookings.indexOf(i+8) == -1) { %>
+        <form action="/rooms/<%= room.id %>/book/<%= i + 8 %>" method="POST">
+          <button class="time-slot"><%=  i + 8 + ":00" %></button>
+        </form>
+        <% } else { %>
+        <div class="time-slot disabled"><%=  i + 8 + ":00" %></div>
+        <% } %>
+      </div>
+      <% } %>
+    </div>
+    <div class="mt-auto p-2">
+      <a href="<%= "/rooms/" + room.id + "/edit" %>" class="btn btn-outline-info mr-1">Edit</a>
+      <form class="same-line" action="/rooms/<%= room.id %>?_method=DELETE" method="POST">
+        <button class="btn btn-outline-primary">Delete</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+</section>
+<div class="container">
+  <hr/>
+</div>
+<section class="container section-block">
+  <h2>Reviews of this room</h2><a href="/rooms/<%= room._id %>/reviews/new" class="btn btn-outline-info my-3">Add new review</a>
+  <% room.reviews.forEach(function(review) { %>
+  <div class="review-list">
+      <p class="author"><%= review.author %> </p>
+      <p class="rating"> <% for (i=0; i< review.rating; i++) { %>★<% } %></p>
+      <p class="review"><%= review.text %></p>
+  </div>
+  <% }) %>
+<%= bookings %>
+</section>
+<% include ../partials/footer %>
