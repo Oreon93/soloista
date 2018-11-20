@@ -1,0 +1,45 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+<% include ../partials/standardwidth %>
+
+<section class="container section-block">
+  <div class="row">
+    <div class="col-lg-3">
+      <p class="welcome-message">Hi, Nicholas</p>
+      <p class="secondary-nav"><a href="/account/bookings">My bookings</a></p>
+      <p class="secondary-nav current-page"><a href="/account/settings">Account settings</a></p>
+      <p class="secondary-nav"><a href="/account/reset">Reset password</a></p>
+    </div>
+    <div class="col-lg-9">
+      <h1 style="">Account settings</h1>
+      <h2>My details</h2>
+      <form method="POST" action="/account/<%= user.id %>?_method=PUT">
+          <div class="form-group">
+            <label for="emailinput">E-mail</label>
+            <input class="form-control" id="emailinput" type="text" placeholder="Your e-mail" value="<%= user.email %>" name="user[email]">
+          </div>
+          <div class="form-group">
+            <label for="usernameinput">Username</label>
+            <input id="usernameinput" class="form-control" type="text" placeholder="Username" value="<%= user.username %>" name="user[username]">
+          </div>
+          <div class="form-group">
+            <label for="firstnameinput">First name</label>
+            <input id="firstnameinput" class="form-control" type="text" placeholder="First name" value="<%= user.firstname %>" name="user[firstname]">
+          </div>
+          <div class="form-group">
+            <label for="lastnameinput">Surname</label>
+            <input id="lastnameinput" class="form-control" type="text" placeholder="Surname" value="<%= user.lastname %>" name="user[lastname]">
+          </div>
+          <div class="form-group">
+            <label for="mobileinput">Mobile</label>
+            <input id="mobileinput" class="form-control" type="number" placeholder="Mobile number" value="<%= user.mobile %>" name="user[mobile]">
+          </div>
+        <button style="display: block" class="btn btn-submit btn-primary" type="submit">Update my details</button>
+      </form>
+    </div>
+  </div>
+
+
+</section>
+
+<% include ../partials/footer %>

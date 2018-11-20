@@ -1,0 +1,17 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+<% include ../partials/standardwidth %>
+<section class="section-block container">
+  <div class="col-6 mx-auto">
+    <h1 class="text-center pb-3">Add a new review<h1>
+
+    <form  method="POST" action="/bookings/<%= booking.id %>/incidents">
+      <div class="form-row form-group">
+        <textarea class="form-control" type="text" placeholder="Report an issue with the room here." name="incident[text]"></textarea>
+      </div>
+      <button style="display: block; margin: 0 auto" class="btn btn-submit btn-secondary" type="submit">Add new review</button>
+    </form>
+  </div>
+</section>
+
+<% include ../partials/footer %>

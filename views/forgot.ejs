@@ -1,0 +1,15 @@
+<% include partials/header %>
+<% include partials/formwidth %>
+<section class="section-block container-fluid">
+
+  <div class="col-lg-4 col-md-6 col-sm-8 mx-auto text-center">
+      <a href="/"><img src="static/logo1.png" class="img-fluid mx-auto" style="display: block; width: 140px"></a>
+      <p class="sign-up-text">Enter your e-mail and we'll send you a link to reset your password</p>
+		<form class="register-form"  action="/forgot" method="POST">
+			<input class="login-input" type="text" name="email" placeholder="E-mail">
+			<button class="btn btn-primary home-primary-btn btn-block ">Reset password</button>
+    </form>
+	</div>
+</section>
+<% include partials/footer-formwidth %>
+<% include partials/footer %>

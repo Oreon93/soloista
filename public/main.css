@@ -1,16 +1,22 @@
+/* Main colour: #0d3e63 or #f3c131 */
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Open Sans';
   font-weight: bold;
+  color: #0d3e63;
 }
-
-
 
 p, li {
   font-family: 'Open Sans', sans-serif;
+  color: #434343;
+}
+
+a {
+  color: #7093ad;
 }
 
 .page-body {
-  margin-top: 60px;
+  margin-top: 100px;
 }
 
 .top-nav {
@@ -34,6 +40,23 @@ p, li {
 .nav-item.active a {
   font-weight: bold;
 }
+
+.secondary-nav {
+  padding: 10px 30px;
+  background-color: #efeeff;
+  width: 100%;
+  display: block;
+  margin: 0;
+}
+
+.current-page {
+  background-color: #0d3e63;
+}
+
+.current-page > a {
+  color: #fff;
+}
+
 
 .btn {
   vertical-align: middle;
@@ -75,7 +98,6 @@ p, li {
   background: none;
 }
 
-
 .btn-secondary {
   background-color: #efeeff;
   border: none;
@@ -84,7 +106,7 @@ p, li {
   font-size: 0.95rem;
   font-weight: 600;
   padding: 0.9rem 1.1rem;
-  color: #ff4b2b;
+  color: #0d3e63;
   box-shadow: none;
 }
 
@@ -96,7 +118,7 @@ p, li {
   font-size: 0.95rem;
   font-weight: 600;
   padding: 0.9rem 1.1rem;
-  color: #ff4b2b;
+  color: #0d3e63;
   box-shadow: none;
 }
 
@@ -105,8 +127,8 @@ p, li {
 }
 
 .btn-primary {
-  background-color: #7D70BA!important;
-  border-color: #7D70BA!important;
+  background-color: #0d3e63!important;
+  border-color: #0d3e63!important;
 }
 
 .text-primary {
@@ -114,14 +136,14 @@ p, li {
 }
 
 .home-banner {
-  color: #FFF;
-  padding: 250px 0;
+  padding: 200px 0 250px 0px;
   margin-bottom: 0;
+  text-align: center;
 }
 
 .home-banner h1 {
   font-size: 2.8em;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 10px;
 }
 
@@ -130,21 +152,37 @@ p, li {
   margin-bottom: 35px;
 }
 
-.home-primary-btn {
-  background: -webkit-linear-gradient(to right, #ff416c, #ff4b2b); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #ff416c, #ff4b2b);
-  border: 0px;
-  border-radius: 20px!important;
-  box-shadow: 5px 5px 10px rgba(0,0,0,0.4);
+.home-search > div {
+  margin: 0 auto;
+}
+
+.home-search input {
+  border: 2px solid #f3c131;
+}
+
+.emphasis {
+  font-weight: 700;
   font-size: 0.95em;
-  padding: 0.9rem 1.1rem;
-  text-transform: uppercase;
+  color: #ffc107;
+  text-shadow: 3px 2px 1px #b1b1b1;
+}
+
+
+.home-primary-btn {
+  background-color: #0d3e63!important;
+  border: 0px;
+  border-radius: 4px!important;
+  box-shadow: 4px 3px 1px rgba(0,0,0,0.4);
+  font-size: 1.25em;
+  padding: 0.7rem 1.1rem;
+  width: 100%;
   font-weight: 600;
+  margin: 10px 0;
 }
 
 .primary-background {
-  background: -webkit-linear-gradient(to right, #ff416c, #ff4b2b); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  background: -webkit-linear-gradient(to right,  #0d3e63, #297AA2); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right,  #0d3e63, #297AA2);
   color: #fff;
 }
 
@@ -167,11 +205,28 @@ p, li {
 }
 
 .section-block {
-  padding: 60px 0px;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.section-narrow {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.section-narrow + .section-block {
+  margin-top: -40px;
 }
 
 .section-block.wavy-top {
   padding: 120px 0px 60px 0px;
+}
+
+.image-section {
+  background-image: url(/static/newsoloistabackgroundgrey.png);
+  background-size: cover;
+  background-position: center;
+  text-align: center;
 }
 
 
@@ -181,10 +236,6 @@ p, li {
   /* text-transform: uppercase; */
   font-size: 1.1em;
   padding: 10px;
-}
-
-a {
-  color: #ff4b2b;
 }
 
 .one-line-section .fas, .one-line-section .fa {
@@ -246,7 +297,64 @@ a {
   font-weight: bold;
 }
 
+/* General UI */
+.current-page {
+  font-weight: bold;
+}
+
+
 /* Room listings */
+
+.room-filter {
+  padding: 20px 0px;
+  border-top: 1px solid #ddd;
+}
+
+.room-filter h3 {
+  font-size: 1.1em;
+}
+
+.date-filter {
+  margin: 15px 0px;
+}
+
+.date-filter p {
+  display: inline;
+  background-color: #efeeff;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.room-listing {
+  box-shadow: 3px 3px 3px #ddd;
+  border-radius: 2px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.room-listing-image {
+  background-size: cover;
+  height: 100%;
+  transition: 0.5s transform, 0.5s opacity;
+}
+
+.room-link-text {
+  display: none;
+  position: absolute;
+  bottom: 0px;
+  right: 10px;
+  color: #fff;
+  z-index: 2;
+}
+
+.room-link:hover .room-link-text {
+  display: block;
+}
+
+.room-listing-information {
+  padding: 10px 30px!important;
+}
+
 .room-listing a {
   transition: opacity 0.5s;
   color: #333;
@@ -257,12 +365,18 @@ a {
   text-decoration: none;
 }
 
+.room-listing-image:hover {
+  transform: scale(1.1);
+  opacity: 0.7;
+}
+
+
 .room-listing a:hover h3 {
   text-decoration: underline!important;
 }
 
-.room-listing h3 {
-  font-size: 1.3rem;
+.room-listing h2 {
+  font-size: 1.5rem;
   font-weight: 600;
   margin-top: 10px;
 }
@@ -272,6 +386,7 @@ a {
   color: #555;
   margin-bottom: 0;
   line-height: 1.4rem;
+  color:  #f3c131;
 }
 
 .room-listing .unit {
@@ -349,17 +464,90 @@ a {
   font-weight: 700;
 }
 
-/* Login form styles */
+/* ------------------ User bookings page ---------------------- */
 
-.login-form {
+.booking-listing {
+  border: 1px solid #efeeff;
+  border-radius: 5px;
+  margin-top: 20px;
+  box-shadow: 3px 3px 3px #ddd;
+}
+
+.block-link {
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left: 0;
+  z-index: 1;
+}
+
+.room-info {
+  padding: 8px 10px;
+}
+
+.room-info p {
+  margin: 0;
+}
+
+.room-location {
+  font-size: 0.9em;
+  text-transform: uppercase;
+}
+
+.room-time {
+  font-size: 1.3em;
+}
+
+
+.booking-utilities {
+  background-color: #efeeff;
+  font-size: 1.6em;
+}
+
+.room-code {
+  padding: 12px 15px 0px 0px;
+  font-weight: bold;
+  font-size: 1.1em;
+  letter-spacing: 1px;
+  line-height: 0.9em;
+}
+
+.room-action-button {
+  align-self: center;
+  margin-left: 10px;
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.room-action-form {
+  align-self: center;
+  margin-top: -4px;
+}
+
+.btn-danger {
+  color: #fff!important;
+}
+
+/* ------------------ Login form styles ----------------------- */
+
+
+
+.login-form p {
   color: #fff;
-  font-size: 1em;
-  margin: 30px 0px 140px 0px;
+  font-weight: 600;
+  text-decoration: underline;
 }
 
 .register-form {
   color: #333;
   font-size: 1em;
+}
+
+.login-form {
+  color: #fff;
+  font-size: 1em;
+  margin: 30px 0px 100px 0px;
 }
 
 .login-input {
@@ -414,4 +602,17 @@ a {
   font-weight: 600;
   color: #555;
   margin-top: 15px;
+}
+
+.login-form-modal {
+  padding: 20px;
+}
+
+.login-form-modal .login-input {
+  background-color: #efefef;
+  color: #555;
+}
+
+.login-form-modal .login-input::placeholder {
+  color: #555;
 }

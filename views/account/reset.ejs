@@ -1,0 +1,35 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+<% include ../partials/standardwidth %>
+
+<section class="container section-block">
+  <div class="row">
+    <div class="col-lg-3">
+      <p class="welcome-message">Hi, Nicholas</p>
+      <p class="secondary-nav"><a href="/account/bookings">My bookings</a></p>
+      <p class="secondary-nav"><a href="/account/settings">Account settings</a></p>
+      <p class="secondary-nav current-page"><a href="/account/reset">Reset password</a></p>
+    </div>
+    <div class="col-lg-9">
+      <h1 style="">Reset password</h1>
+      <form action="/reset/loggedin" method="POST">
+  		  <legend>Reset Password</legend>
+  		  <div class="form-group">
+  		    <label for="password">New Password</label>
+  		    <input type="password" name="password" value="" placeholder="New password" autofocus="autofocus" class="form-control"/>
+  		  </div>
+  		  <div class="form-group">
+  		    <label for="confirm">Confirm Password</label>
+  		    <input type="password" name="confirm" value="" placeholder="Confirm password" class="form-control"/>
+  		  </div>
+  		  <div class="form-group">
+  		    <button type="submit" class="btn btn-primary">Update Password</button>
+  		  </div>
+  		</form>
+    </div>
+  </div>
+
+
+</section>
+
+<% include ../partials/footer %>

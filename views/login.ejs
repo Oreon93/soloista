@@ -3,12 +3,14 @@
 
   <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
       <a href="/"><img src="static/logowhite.png" class="img-fluid mx-auto" style="display: block; width: 140px"></a>
-    <form class="login-form" action="/login" method="POST">
-      <input class="login-input" name="username" type="text" placeholder="E-mail">
-      <input class="login-input" name="password" type="password" placeholder="Password">
-      <button class="btn btn-secondary btn-block ">Log in</button>
-      <p class="text-center mt-3 mb-5">Forgot password?</p>
-    </form>
+    <div class="login-form">
+      <form action="/login" method="POST">
+        <input class="login-input" name="username" type="text" placeholder="E-mail">
+        <input class="login-input" name="password" type="password" placeholder="Password">
+        <button class="btn btn-secondary btn-block ">Log in</button>
+        <a href="/forgot"><p class="text-center mt-3 mb-5">Forgot password?</p></a>
+      </form>
+    </div>
   </div>
 
 

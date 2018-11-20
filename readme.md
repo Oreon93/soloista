@@ -13,3 +13,28 @@ Current features:
 - Individual room pages
 - Only registered users can book; unregistered users will be asked to log in
 - Logged in users have access to rudimentary CRUD capabilities; this is not yet restricted to administrators
+
+
+## 0.2 - 20/11/2018
+
+Booking management
+- Added booking cancellation functionality
+- Added ability to report a problem with the room
+- Restricted bookings view to upcoming bookings only
+
+Account area
+- Added full name and mobile number to users
+- Users required to provide a mobile number when registeringg
+- Users can update their information from the account area
+
+Password reset
+- Added user password reset/forgot password functionality
+- User sent an e-mail to follow to a password reset link
+- User e-mailed a confirmation that their password has been changed
+
+Design
+- Total redesign of the site to a blue/yellow colour scheme
+- New home page redesign
+
+Flash messages
+- Flash messages implemented across the site with improved error reporting
