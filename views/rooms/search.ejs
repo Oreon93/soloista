@@ -41,7 +41,7 @@
         <div class="col-8 room-listing-information">
           <div class="row d-flex justify-content-between">
             <div class="main-room-info">
-              <h3 class="room-name"><%= room.name %></h3>
+              <a href="/rooms/<%= room.id %>" class="room-name"><h3><%= room.name %></h3></a>
               <p class="review"><span class="rating"><%
                 var total_rating = 0;
                 room.reviews.forEach(function(review) {

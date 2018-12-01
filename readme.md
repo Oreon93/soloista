@@ -38,3 +38,16 @@ Design
 
 Flash messages
 - Flash messages implemented across the site with improved error reporting
+
+## 0.3 - 29/11/2018
+
+- Simple code refactor to split out account, reviews, auth and rooms views
+
+Reviews
+- Users can now only leave a review from the bookings page
+- Reviews restricted to rooms a user has visited
+- Bookings page displays "Already reviewed" if user has already reviewwed the room
+
+User roles
+- Added an "admin" user role
+- Regular users cannot add, edit or delete rooms

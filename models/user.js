@@ -5,6 +5,10 @@ var UserSchema = new mongoose.Schema({
     email: String,
     username: String,
     password: String,
+    isAdmin: {
+      type: Boolean,
+      default: false
+    },
     resetPasswordToken: String,
     resetPasswordExpires: Date,
     firstname: {type: String, default: ""},
@@ -15,7 +19,13 @@ var UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Booking"
       }
-    ]
+    ],
+    reviews: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Review"
+      }
+    ],
 });
 
 UserSchema.plugin(passportLocalMongoose);

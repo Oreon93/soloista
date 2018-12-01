@@ -22,7 +22,7 @@
     <div class="row">
       <% for (i=0; i<12; i++) { %>
       <div class="col-3">
-        <% if (bookings.indexOf(i+8) == -1) { %>
+        <% if (room.bookings.indexOf(i+8) == -1) { %>
         <form action="/rooms/<%= room.id %>/book/<%= i + 8 %>" method="POST">
           <button class="time-slot"><%=  i + 8 + ":00" %></button>
         </form>
@@ -32,12 +32,15 @@
       </div>
       <% } %>
     </div>
+    <!---- Admin room actions ----!>
+    <% if (currentUser && currentUser.isAdmin == true) {%>
     <div class="mt-auto p-2">
       <a href="<%= "/rooms/" + room.id + "/edit" %>" class="btn btn-outline-info mr-1">Edit</a>
       <form class="same-line" action="/rooms/<%= room.id %>?_method=DELETE" method="POST">
         <button class="btn btn-outline-primary">Delete</button>
       </form>
     </div>
+    <% } %>
   </div>
 
 </div>
@@ -46,10 +49,10 @@
   <hr/>
 </div>
 <section class="container section-block">
-  <h2>Reviews of this room</h2><a href="/rooms/<%= room._id %>/reviews/new" class="btn btn-outline-info my-3">Add new review</a>
+  <h2>Reviews of this room</h2>
   <% room.reviews.forEach(function(review) { %>
   <div class="review-list">
-      <p class="author"><%= review.author %> </p>
+      <p class="author"><%= review.author.name %> </p>
       <p class="rating"> <% for (i=0; i< review.rating; i++) { %>★<% } %></p>
       <p class="review"><%= review.text %></p>
   </div>

@@ -1,10 +1,12 @@
 /* Main colour: #0d3e63 or #f3c131 */
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3  {
   font-family: 'Open Sans';
   font-weight: bold;
   color: #0d3e63;
 }
+
+
 
 p, li {
   font-family: 'Open Sans', sans-serif;
@@ -14,6 +16,11 @@ p, li {
 a {
   color: #7093ad;
 }
+
+.text-faded {
+  color: #666;
+}
+
 
 .page-body {
   margin-top: 100px;
@@ -404,6 +411,17 @@ a {
 }
 
 /* Individual rooms */
+.room-card-title {
+  font-weight: bold;
+  margin: 5px 0px;
+}
+
+.tickmark {
+  color: #4fad70;
+}
+
+
+
 
 .full-feature {
   height: 600px;
@@ -469,7 +487,7 @@ a {
 .booking-listing {
   border: 1px solid #efeeff;
   border-radius: 5px;
-  margin-top: 20px;
+  margin-bottom: 20px;
   box-shadow: 3px 3px 3px #ddd;
 }
 

@@ -11,8 +11,9 @@
       <p class="secondary-nav"><a href="/account/reset">Reset password</a></p>
     </div>
     <div class="col-lg-9">
-      <h1>My upcoming bookings</h1>
-      <% theUser.bookings.forEach(function(booking) { %>
+      <h2>My upcoming bookings</h2>
+      <section class="section-narrow">
+      <% upcomingBookings.forEach(function(booking) { %>
       <div class="row align-items-center booking-listing">
         <a href="/rooms/<%= booking.room.id %>">
         <div class="col-2 align-self-stretch booking-image" style="background-image: url('/static/images/rooms/<%= booking.room.picture%>'); background-size: cover">
@@ -39,6 +40,21 @@
           </div>
       </div>
       <% }); %>
+      </section>
+      <h2>Past bookings</h2>
+      <div class="row">
+      <% pastRoomsAndReviews.forEach(function(room) { %>
+        <div class="col-4">
+          <img class="img-fluid" src="/static/images/rooms/<%= room.picture %>">
+          <p class="room-card-title"><%= room.name %></p>
+          <% if (room.hasReview == true) { %>
+            <p class="text-faded"><i class="fas fa-check tickmark"></i>  Already reviewed </p>
+          <% } else { %>
+          <a href="/rooms/<%= room._id %>/reviews/new" class="btn btn-sm btn-outline-primary">Leave review</a>
+          <% } %>
+        </div>
+      <% }) %>
+      </div>
     </div>
   </div>
 
