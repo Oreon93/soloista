@@ -1,21 +1,32 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
 <% include ../partials/standardwidth %>
-<section class="section-block image-section">
+<!----<section class="section-block image-section">
   <h1>Search results</h1>
+</section>---->
+<section class="d-flex breadcrumbs container-fluid section-narrow">
+  <div class="breadcrumbs-items d-flex align-items-center justify-content-between">
+    <p>Soloista &gt; Search results </p>
+    <p><a id="listviewlink" class="link-active" href="#"><i class="far fa-list-alt"></i> List view</a> | <a id="mapviewlink" href="#"><i class="fas fa-map-marked-alt"></i> Map view</a></p>
+  </div>
 </section>
-<section class="container section-block">
+<section id="listview" class="container section-block">
   <div class="row">
+    <!---- These are the room filters --->
     <div class="room-filters col-lg-3">
       <div class="room-filter">
         <h3>Rooms availabe on:</h3>
         <div class="date-filter">
-        <p><%= dateQuery %></p>
+        <input type="text" id="datepicker" placeholder="<%= moment(dateQuery, "MM-DD-YYYY").format("dddd, D MMMM") %>"></input>
         </div>
       </div>
       <div class="room-filter">
         <h3>Price per hour:</h3>
-        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+        <p>
+          <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+        </p>
+        <div id="slider-range"></div>
+
       </div>
       <div class="room-filter">
         <h3>Features</h3>
@@ -25,65 +36,29 @@
         <input type="checkbox" name="musicstand" value="Music stand">Music stand<br>
         <input type="checkbox" name="organ" value="Organ">Organ<br>
       </div>
-
     </div>
-    <div class="col-lg-9">
-    <% rooms.forEach(function(room) { %>
-      <div class="row room-listing no-gutters">
-        <div class="col-4 room-link" style="overflow: hidden; background-color: #000;">
-          <a href="/rooms/<%= room.id %>">
-            <div class="room-listing-image" style="background-image: url('/static/images/rooms/<%= room.picture%>')">
-            </div>
-
-          </a>
-          <p class="room-link-text">More photos & reviews ></p>
-        </div>
-        <div class="col-8 room-listing-information">
-          <div class="row d-flex justify-content-between">
-            <div class="main-room-info">
-              <a href="/rooms/<%= room.id %>" class="room-name"><h3><%= room.name %></h3></a>
-              <p class="review"><span class="rating"><%
-                var total_rating = 0;
-                room.reviews.forEach(function(review) {
-                  total_rating += review.rating;
-                });
-                var average = total_rating / room.reviews.length;
-                for (i=0; i<average; i++) { %>★<% } %>
-              </span></p>
-            </div>
-            <div class="price">
-              <p class="price">€<%= room.price_per_hour %><% if ((room.price_per_hour*10)%10 !== 0) {%>0<% } %></p>
-              <p class="unit"> per hour</p>
-            </div>
-          </div>
-          <div class="row">
-            <p><%= room.description %></p>
-            <div class="row">
-              <% for (i=0; i<12; i++) { %>
-              <div class="col-3">
-                <% var roomBookings = bookings.find(function(booking) {
-                  return booking.id == room._id;
-                });
-                if (roomBookings.bookings.indexOf(i+8) == -1) {
-                  if (currentUser) { %>
-                <form id="<%= i %>" action="/rooms/<%= room.id %>/book/<%= i + 8 %>" method="POST">
-                  <button type="submit" class="time-slot"><%=  i + 8 + ":00" %></button>
-                </form>
-                <% } else { %>
-                <a id="<%= room.id + (i + 10) %>" class="time-slot enabled"> <%=  i + 8 + ":00" %></a>
-                <% }
-                } else { %>
-                <div class="time-slot disabled"><%=  i + 8 + ":00" %></div>
-                <% } %>
-              </div>
-              <% } %>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% }); %>
+    <!--- These are the results in a list view --->
+    <div class="col-lg-9" id="results">
+      <% include ../search-results %>
+    </div>
+    <!--- End of list view --->
+  </div>
+</section>
+<section id="mapview" style="display:none">
+  <div class="mapviewcolumn mapview-left">
+    <div class="map-results-list" id="mapresults">
+    <!--- Rooms listing again but for the map view --->
+    <% include ../search-results-map-view %>
     </div>
   </div>
+  <div class="mapviewcolumn mapview-right">
+    <div class="mapbox">
+      <div id='mymap' style="position: absolute; top: 0; bottom: 0; width: 100%; height: 100%"></div>
+    </div>
+  </div>
+
+</section>
+
 
 
 <div class="modal fade">
@@ -95,23 +70,140 @@
 </div>
 
 
-</section>
+
+
 <script>
 $(document).ready(function(){
-    $(".time-slot.enabled").click(function(event) {
-      var id = event.target.id.substring(0, event.target.id.length - 2);
-      var time = parseInt(event.target.id.substring(event.target.id.length - 2)) - 1;
+  // Popup modal if sommeone tries to book but isn't logged in
+  $("#listview").on("click", ".time-slot.enabled", function(event) {
+    var id = event.target.id.substring(0, event.target.id.length - 2);
+    var time = parseInt(event.target.id.substring(event.target.id.length - 2)) - 1;
 
-      $.ajax({
-        type: "POST",
-        url: "/loginmodal",
-        data: {id: id, time: time},
-        success: function(data) {
-        $(".modal").modal();
-        $(".modal-content").html(data);
-        console.log(data);
-      }});
+    $.ajax({
+      type: "POST",
+      url: "/loginmodal",
+      data: {id: id, time: time},
+      success: function(data) {
+      $(".modal").modal();
+      $(".modal-content").html(data);
+      console.log(data);
+    }});
+  });
+
+  // Price slider configuration
+  $( "#slider-range" ).slider({
+    range: true,
+    min: 0,
+    max: 40,
+    values: [ 0, 40 ],
+    slide: function( event, ui ) {
+      $( "#amount" ).val( "€" + ui.values[ 0 ] + " - €" + ui.values[ 1 ] );
+    }
+  });
+  $( "#amount" ).val( "€" + $( "#slider-range" ).slider( "values", 0 ) +
+    " - €" + $( "#slider-range" ).slider( "values", 1 ) );
+
+  // Date picker configuration
+  $( "#datepicker" ).datepicker({
+  inline: true, minDate: 0, maxDate: "+1M +10D", dateFormat: "DD, dd MM"
+  });
+
+  $("#datepicker").change(refreshRooms);
+  $("#slider-range").on("slidechange", refreshRooms);
+
+  function refreshRooms() {
+    // Get user filters
+    var priceRange =  $("#slider-range").slider("values");
+    var priceMin = priceRange[0], priceMax = priceRange[1];
+    var date = $.datepicker.formatDate("mm-dd-yy", $("#datepicker").datepicker("getDate"));
+
+    // Refresh the rooms
+    $.ajax({
+      type: "GET",
+      url: "/rooms/search-refresh?" + "date=" + date + "&priceMin=" + priceMin + "&priceMax=" + priceMax + "&view=list",
+      success: function(data) {
+        $("#results").hide();
+        $("#results").html(data);
+        $("#results").fadeIn("slow");
+    }});
+    $.ajax({
+      type: "GET",
+      url: "/rooms/search-refresh?" + "date=" + date + "&priceMin=" + priceMin + "&priceMax=" + priceMax + "&view=map",
+      success: function(data) {
+        $("#mapresults").html(data);
+    }});
+  };
+
+  // Change between map view and list view
+  $("#mapviewlink, #listviewlink").click(function() {
+    $("#listview, #mapview").toggle();
+    $("#mapviewlink, #listviewlink").toggleClass("link-active");
+    $("main").toggleClass("fill-viewport");
+    $("html").toggleClass("fill-viewport");
+    $("body").toggleClass("fill-viewport");
+  });
+
+  mapboxgl.accessToken = 'pk.eyJ1Ijoib3Jlb24xOTkzIiwiYSI6ImNqZngwbmNuODA1ZzEyd2xqa2w2NjQweHAifQ.KviPGrmDg7igxoc1rf-_ww';
+  var map = new mapboxgl.Map({
+  container: 'mymap',
+  style: 'mapbox://styles/oreon1993/cjpiubewd07wu2rqmxsqa58jh',
+  center: [2.187308, 41.385662], // starting position
+    zoom: 13 // starting zoom
+  });
+
+  $("#mapviewlink").one("click", function() {
+
+    // Add zoom and rotation controls to the map.
+    map.addControl(new mapboxgl.NavigationControl());
+    map.resize();
+  });
+
+  map.on('load', function() {
+    map.loadImage("/static/marker-15.png", function(error, image) {
+        if (error) throw error;
+        map.addImage('cat', image);
+        map.addLayer({
+            "id": "places",
+            "type": "symbol",
+            "source": {
+                "type": "geojson",
+                "data": {
+                    "type": "FeatureCollection",
+                    "features": <%-JSON.stringify(locations) %>
+                }
+            },
+            "layout": {
+                "icon-image": "cat",
+                "icon-size": 1,
+                "icon-allow-overlap": true,
+                "text-field": "{title}",
+                "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                "text-offset": [0, 0.6],
+                "text-anchor": "top"
+            }
+        });
+        console.log("Actually done");
     });
+  });
+
+  // Map configuration
+
+
+  /*
+  $(".mapboxgl-canvas").width("100%").height("700px");
+  $(".mapboxgl-canvas").css({"position": "absolute", "top": "0", "bottom": "0", "right": "0", "left":"0", "width": "auto"});
+  map.resize();
+  */
+
+  /* $( "#dialog-link, #icons li" ).hover(
+  function() {
+    $( this ).addClass( "ui-state-hover" );
+  },
+  function() {
+    $( this ).removeClass( "ui-state-hover" );
+  }
+); */
+
 });
 </script>
 <% include ../partials/footer %>

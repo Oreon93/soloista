@@ -1,0 +1,54 @@
+<% rooms.forEach(function(room) { %>
+  <div class="row room-listing no-gutters">
+    <div class="col-4 room-link" style="overflow: hidden; background-color: #000;">
+      <a href="/rooms/<%= room.id %>">
+        <div class="room-listing-image" style="background-image: url('/static/images/rooms/<%= room.picture%>')">
+        </div>
+
+      </a>
+      <p class="room-link-text"><a href="/rooms/<%= room.id %>">More photos & reviews > </a></p>
+    </div>
+    <div class="col-8 room-listing-information">
+      <div class="row d-flex justify-content-between">
+        <div class="main-room-info">
+          <a href="/rooms/<%= room.id %>" class="room-name"><h3><%= room.name %></h3></a>
+          <span class="rating"><%
+            var total_rating = 0;
+            room.reviews.forEach(function(review) {
+              total_rating += review.rating;
+            });
+            var average = total_rating / room.reviews.length;
+            for (i=0; i<average; i++) { %>★<% } %>
+          </span>
+        </div>
+        <div class="price">
+          <p class="price">€<%= room.price_per_hour %><% if ((room.price_per_hour*10)%10 !== 0) {%>0<% } %></p>
+          <p class="unit"> per hour</p>
+        </div>
+      </div>
+      <div class="row">
+        <p><%= room.description %></p>
+        <div class="row">
+          <% for (i=0; i<12; i++) { %>
+          <div class="col-3">
+            <% var roomBookings = bookings.find(function(booking) {
+              return booking.id == room._id;
+            });
+            if (roomBookings.bookings.indexOf(i+8) == -1) {
+              if (currentUser) { %>
+            <form id="<%= i %>" action="/rooms/<%= room.id %>/book/<%= i + 8 %>" method="POST">
+              <button type="submit" class="time-slot"><%=  i + 8 + ":00" %></button>
+            </form>
+            <% } else { %>
+            <a id="<%= room.id + (i + 10) %>" class="time-slot enabled"> <%=  i + 8 + ":00" %></a>
+            <% }
+            } else { %>
+            <div class="time-slot disabled"><%=  i + 8 + ":00" %></div>
+            <% } %>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% }); %>

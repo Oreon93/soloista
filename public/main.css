@@ -21,13 +21,27 @@ a {
   color: #666;
 }
 
+.link-active {
+  font-weight: bold;
+}
 
 .page-body {
-  margin-top: 100px;
+  padding-top: 100px;
 }
+
+.fill-viewport {
+  height: 100%;
+}
+
 
 .top-nav {
   padding-top: 20px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.fixed-top {
+  z-index: 1;
 }
 
 .navbar-brand {
@@ -64,6 +78,9 @@ a {
   color: #fff;
 }
 
+.ui-datepicker {
+  z-index: 2!important;
+}
 
 .btn {
   vertical-align: middle;
@@ -221,6 +238,21 @@ a {
   padding-bottom: 20px;
 }
 
+.breadcrumbs {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background-color: #efeeff;
+  height: 80px;
+}
+
+.breadcrumbs-items {
+  width: 100%;
+}
+
+.breadcrumbs p {
+  margin-bottom: 0;
+}
+
 .section-narrow + .section-block {
   margin-top: -40px;
 }
@@ -325,6 +357,7 @@ a {
   margin: 15px 0px;
 }
 
+
 .date-filter p {
   display: inline;
   background-color: #efeeff;
@@ -350,8 +383,11 @@ a {
   position: absolute;
   bottom: 0px;
   right: 10px;
-  color: #fff;
   z-index: 2;
+}
+
+.room-link-text a {
+  color: #fff!important;
 }
 
 .room-link:hover .room-link-text {
@@ -405,10 +441,72 @@ a {
   color: #ff4b2b;
 }
 
+.room-name h3 {
+  display: inline;
+}
+
+
 .img-thumbnail {
   border: none;
   border-radius: 8px;
 }
+
+/* Room listings - map view */
+
+#mapview {
+  height: calc(100% - 80px);
+  overflow: hidden;
+  margin: 0px;
+  display: flex;
+}
+
+
+.mapviewcolumn {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mapview-left {
+  flex-shrink: 0;
+  width: 40%;
+}
+
+.mapview-right {
+  width: 100%;
+}
+
+.mapbox {
+  flex-grow: 1;
+  overflow-y: auto;
+  position: relative;
+}
+
+#mymap {
+  /*width: 100%;
+  height: 100%; */
+}
+
+.map-results-list {
+  border-right: 1px solid #ddd;
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.map-room-listing {
+  border-bottom: 1px solid #ddd;
+
+}
+
+.map-room-listing h3 {
+  font-size: 1.5em;
+}
+
+.mapboxgl-canvas {
+  left: 0;
+}
+
 
 /* Individual rooms */
 .room-card-title {
@@ -459,6 +557,34 @@ a {
   display: inline;
 }
 
+/* Room "show" page */
+
+.room-availability {
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-top: 20px;
+}
+
+.room-availability h3 {
+  font-size: 1em;
+  text-transform: uppercase;
+  margin: 10px 0px;
+  text-align: center;
+}
+
+.date-filter-room-show {
+  text-align: center;
+  margin: 10px 0px;
+  border: none;
+}
+
+.date-filter-room-show input {
+  border: none;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  width: 50%;
+}
+
 .review-list {
   padding: 15px;
   border-radius: 5px;
@@ -466,8 +592,8 @@ a {
   margin: 10px 0px;
 }
 
-.review-list .rating, .room-info .rating {
-  color: #ff4b2b;
+.review-list .rating, .room-info .rating, .main-room-info .rating {
+  color: #f3c131;;
   display: inline;
 }
 
@@ -546,6 +672,9 @@ a {
 .btn-danger {
   color: #fff!important;
 }
+
+
+
 
 /* ------------------ Login form styles ----------------------- */
 

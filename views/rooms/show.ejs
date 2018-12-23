@@ -19,18 +19,35 @@
     </span>
     (<%= room.reviews.length %> review<% if (room.reviews.length !== 1) { %>s<% } %>)</p>
     <p><%= room.description %></p>
-    <div class="row">
-      <% for (i=0; i<12; i++) { %>
-      <div class="col-3">
-        <% if (room.bookings.indexOf(i+8) == -1) { %>
-        <form action="/rooms/<%= room.id %>/book/<%= i + 8 %>" method="POST">
-          <button class="time-slot"><%=  i + 8 + ":00" %></button>
-        </form>
-        <% } else { %>
-        <div class="time-slot disabled"><%=  i + 8 + ":00" %></div>
+    <div class="room-availability">
+      <h3>Book now </h3>
+      <div class="date-filter-room-show">
+      <% if (typeof dateQuery == 'string' && dateQuery) { %>
+      <input type="text" id="datepicker" placeholder="<%= moment(dateQuery, "MM-DD-YYYY").format("dddd, D MMMM") %>"></input>
+      <% } else { %>
+      <input type="text" id="datepicker" placeholder="Choose a date"></input>
+      <% } %>
+      </div>
+      <div class="row" id="bookings">
+        <% for (i=0; i<12; i++) { %>
+        <div class="col-3">
+          <%
+
+            if (bookings.indexOf(i+8) == -1) {
+            if (currentUser) { %>
+          <form id="<%= i %>" action="/rooms/<%= room.id %>/book/<%= i + 8 %>" method="POST">
+            <button type="submit" class="time-slot"><%=  i + 8 + ":00" %></button>
+          </form>
+          <% } else { %>
+          <a id="<%= room.id + (i + 8) %>" class="time-slot enabled"> <%=  i + 8 + ":00" %></a>
+          <% }
+          } else { %>
+          <div class="time-slot disabled"><%=  i + 8 + ":00" %></div>
+          <% } %>
+        </div>
         <% } %>
       </div>
-      <% } %>
+
     </div>
     <!---- Admin room actions ----!>
     <% if (currentUser && currentUser.isAdmin == true) {%>
@@ -57,6 +74,51 @@
       <p class="review"><%= review.text %></p>
   </div>
   <% }) %>
-<%= bookings %>
 </section>
+<div class="modal fade">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function(){
+  // Popup modal if sommeone tries to book but isn't logged in
+  $("#bookings").on("click", ".time-slot.enabled", function(event) {
+    var id = event.target.id.substring(0, event.target.id.length - 2);
+    var time = parseInt(event.target.id.substring(event.target.id.length - 2));
+
+    $.ajax({
+      type: "POST",
+      url: "/loginmodal",
+      data: {id: id, time: time},
+      success: function(data) {
+      $(".modal").modal();
+      $(".modal-content").html(data);
+      console.log(data);
+    }});
+  });
+
+  $( "#datepicker" ).datepicker({
+  inline: true, minDate: 0, maxDate: "+1M +10D", dateFormat: "DD, dd MM"
+  });
+
+  $("#datepicker").change(refreshBookings);
+
+  function refreshBookings() {
+    var date = $.datepicker.formatDate("mm-dd-yy", $("#datepicker").datepicker("getDate"));
+
+    // Refresh the rooms
+    $.ajax({
+      type: "GET",
+      url: "/rooms/<%= room._id %>/bookings-refresh?" + "date=" + date,
+      success: function(data) {
+        $("#bookings").hide();
+        $("#bookings").html(data);
+        $("#bookings").fadeIn("slow");
+    }});
+  }
+});
+</script>
 <% include ../partials/footer %>

@@ -67,6 +67,18 @@ app.use("/account", accountRoutes);
 app.use("/rooms/:id/reviews", reviewsRoutes);
 app.use("/", indexRoutes);
 
+
+/* ---------- MAPBOX CONFIG ----------- */
+
+
+
+
+
+
+
+
+
+
 // LANDING PAGE
 app.get("/", function(req, res) {
   res.render("landing");

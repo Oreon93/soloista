@@ -14,6 +14,14 @@
           <input class="form-control" type="text" placeholder="Location" value="<%= room.location %>" name="room[location]">
         </div>
       </div>
+      <div class="form-row form-group">
+        <div class="col">
+          <input class="form-control" type="number" step="0.000001" placeholder="Latitude" value="<%= room.longLat.coordinates[1] %>" name="room[lat]">
+        </div>
+        <div class="col">
+          <input class="form-control" type="number" step="0.000001" placeholder="Longitude" value="<%= room.longLat.coordinates[0] %>" name="room[long]">
+        </div>
+      </div>
       <div class="form-group">
       <textarea class="form-control" type="text" placeholder="Description" name="room[description]"><%= room.description %></textarea>
 

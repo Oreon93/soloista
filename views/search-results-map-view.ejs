@@ -1,0 +1,33 @@
+<% rooms.forEach(function(room) { %>
+  <div class="row map-room-listing no-gutters">
+    <div class="col-4 room-link" style="overflow: hidden; background-color: #000;">
+      <a href="/rooms/<%= room.id %>">
+        <div class="room-listing-image" style="background-image: url('/static/images/rooms/<%= room.picture%>')">
+        </div>
+
+      </a>
+      <p class="room-link-text"><a href="/rooms/<%= room.id %>">More photos & reviews ></a></p>
+    </div>
+    <div class="col-8 room-listing-information">
+      <div>
+        <div class="main-room-info">
+          <a href="/rooms/<%= room.id %>" class="room-name"><h3><%= room.name %></h3></a>
+          <p class="review"><span class="rating"><%
+            var total_rating = 0;
+            room.reviews.forEach(function(review) {
+              total_rating += review.rating;
+            });
+            var average = total_rating / room.reviews.length;
+            for (i=0; i<average; i++) { %>★<% } %>
+          </span></p>
+        </div>
+        <div class="price">
+          <p class="price">€<%= room.price_per_hour %><% if ((room.price_per_hour*10)%10 !== 0) {%>0<% } %> per hour</p>
+        </div>
+      </div>
+      <div class="row">
+        <p><%= room.description %></p>
+      </div>
+    </div>
+  </div>
+<% }); %>

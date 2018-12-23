@@ -39,7 +39,7 @@ Design
 Flash messages
 - Flash messages implemented across the site with improved error reporting
 
-## 0.3 - 29/11/2018
+## 0.3 - 01/12/2018
 
 - Simple code refactor to split out account, reviews, auth and rooms views
 
@@ -51,3 +51,10 @@ Reviews
 User roles
 - Added an "admin" user role
 - Regular users cannot add, edit or delete rooms
+
+## 0.4 - 23/12/2018
+
+Booking system
+- Added filters and Ajax to refresh rooms without reloading page
+- Added a "map view" with rooms plotted on a map, using Mapbox. Rooms now have GeoJSON coordinates in the room model.
+- User can now book a room book a room from the individual room page, as well as change the search date and refresh the available time slots

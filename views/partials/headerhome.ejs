@@ -22,7 +22,7 @@
     <script>
     $( function() {
       $( "#datepicker" ).datepicker({
-  	inline: true
+  	inline: true, minDate: 0, maxDate: "+1M +10D"
   });
   $( "#dialog-link, #icons li" ).hover(
 	function() {
