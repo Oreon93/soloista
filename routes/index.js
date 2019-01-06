@@ -17,7 +17,7 @@ router.get("/register", function(req, res) {
 });
 
 router.post("/register", function(req, res) {
-  User.register(new User({email: req.body.email, username: req.body.email, mobile: req.body.mobile}), req.body.password, function(err, user) {
+  User.register(new User({firstname: req.body.firstname, email: req.body.email, username: req.body.email, mobile: req.body.mobile}), req.body.password, function(err, user) {
     if(err) {
       console.log(err);
       res.render("register");
@@ -35,11 +35,20 @@ router.get("/login", function(req, res) {
 
 router.post("/login", passport.authenticate("local", {
   failureRedirect: "/login",
+  failureFlash: "Your username or password was incorrect",
   successFlash: "You have been logged in",
 }), function(req,res) {
   var redirectTo = req.session.returnTo || '/account/bookings';
   delete req.session.returnTo;
-  res.redirect(redirectTo);
+  if (req.session.isPost) {
+    res.redirect(307, redirectTo);
+  } else {
+    res.redirect(redirectTo);
+  }
+});
+
+router.post("/loginandbook/:id/:time", passport.authenticate("local"), function(req, res) {
+  res.redirect(307, "/rooms/"+ req.params.id + "/book/" + req.params.time );
 });
 
 router.get("/logout", function(req, res) {
@@ -205,6 +214,45 @@ router.post('/reset/:token', function(req, res) {
     }
   ], function(err) {
     res.redirect('/account/bookings');
+  });
+});
+
+// ---------------------- STATIC PAGES ------------------------
+router.get('/faqs', function(req, res) {
+  res.render('faqs');
+})
+
+
+// Contact form on landing page
+router.post('/contact', function (req, res) {
+  var smtpTrans = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      type: "OAuth2",
+      user: "soloistamusic@gmail.com",
+      clientId: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      accessToken: process.env.ACCESS_TOKEN,
+      refreshToken: process.env.REFRESH_TOKEN,
+    },
+    tls: {
+      rejectUnauthorized: false
+    }
+  });
+  var mailOpts = {
+    from: "nicholas-howley@hotmail.com",
+    to: "soloistamusic@gmail.com",
+    subject: 'New message from contact form',
+    text: req.body.message.text,
+  };
+  smtpTrans.sendMail(mailOpts, function (error, response) {
+    if (error) {
+      console.log(error);
+      res.redirect('/rooms');
+    }
+    else {
+      res.redirect('/');
+    }
   });
 });
 

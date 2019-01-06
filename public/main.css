@@ -1,28 +1,37 @@
-/* Main colour: #0d3e63 or #f3c131 */
+/* CONTENTS
 
-h1, h2, h3  {
-  font-family: 'Open Sans';
-  font-weight: bold;
-  color: #0d3e63;
+1. STYLES FOR ALL SIZES
+- PALLETTE
+- CORE LAYOUT
+- CORE TYPOGRAPHY
+
+2. MOBILE FIRST STYLES
+- CORE LAYOUT
+- HOME PAGE
+- SEARCH PAGE
+- SHOW PAGE
+- ACCOUNT PAGES
+
+3. DESKTOP STYLES
+- CORE LAYOUT
+- HOME PAGE
+- SEARCH PAGE
+- SHOW PAGE
+- ACCOUNT PAGES
+
+
+/* -------------------------- 1. STYLES FOR ALL SIZES ------------------------------- */
+/* PALLETTE */
+:root {
+  --primary-blue: #0d3e63;
+  --primary-yellow: #f3c131;
+  --link-color: #7093ad;
+  --paragraph-color: #434343;
 }
 
-
-
-p, li {
-  font-family: 'Open Sans', sans-serif;
-  color: #434343;
-}
-
-a {
-  color: #7093ad;
-}
-
-.text-faded {
-  color: #666;
-}
-
-.link-active {
-  font-weight: bold;
+/* CORE LAYOUT */
+main {
+  min-height: 100vh;
 }
 
 .page-body {
@@ -34,19 +43,86 @@ a {
 }
 
 
+/* CORE TYPOGRAPHY */
+
+h1, h2, h3  {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  color: var(--primary-blue);
+}
+
+p, li {
+  font-family: 'Open Sans', sans-serif;
+  color: var(--paragraph-color);
+}
+
+a {
+  color: var(--link-color);
+}
+
+.message {
+  font-weight: 600;
+}
+
+.link-active {
+  font-weight: bold;
+}
+
+
+/* MOBILE FIRST STYLES */
+
+/* ------- CORE LAYOUT ------- */
+[class*="col-"] {
+    margin-bottom: 15px;
+}
+
+/* NAV */
 .top-nav {
   padding-top: 20px;
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 32px;
+  padding-right: 32px;
+  margin: 0 auto;
+  transition: background-color 0.5s ease, padding-top 0.5s ease;
+}
+
+.top-nav.scrolled {
+  background-color: var(--primary-blue);
+  padding-top: 5px;
+}
+
+.top-nav.scrolled .nav-link {
+  color: #fff;
+}
+
+.top-nav.scrolled .navbar-brand img {
+  background: url("/static/soloistalogonewwhite.png") no-repeat;
+  background-size: contain;
+  padding-left: 120px;
+  width: 120px;
+  height: 60px;
+  box-sizing: border-box;
 }
 
 .fixed-top {
-  z-index: 1;
+  z-index: 3;
 }
 
 .navbar-brand {
   font-family: 'Poiret One', cursive;
   letter-spacing: 2px;
+}
+
+.primary-background .navbar-brand img {
+  background: url("/static/soloistalogonewwhite.png") no-repeat;
+  background-size: contain;
+  padding-left: 120px;
+  width: 120px;
+  height: 80px;
+  box-sizing: border-box;
+}
+
+.primary-background h1 {
+  color: #fff;
 }
 
 .nav-link {
@@ -58,21 +134,434 @@ a {
   color: #333;
 }
 
+.primary-background .navbar-light .navbar-nav .nav-link {
+  color: #fff;
+}
+
 .nav-item.active a {
   font-weight: bold;
 }
 
+.section-block {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.section-narrow {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.section-narrow + .section-block {
+  margin-top: -10px;
+}
+
+.section-block.wavy-top {
+  padding: 60px 0px 30px 0px;
+}
+
+.breadcrumbs {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background-color: #efeeff;
+  height: 80px;
+}
+
+.breadcrumbs-items {
+  width: 100%;
+}
+
+.breadcrumbs p {
+  margin-bottom: 0;
+}
+
 .secondary-nav {
-  padding: 10px 30px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-inline-start: 0px;
+}
+
+.secondary-nav__avatar {
+  width: 100%;
+  font-weight: 600;
+  text-align: center;
+}
+
+.secondary-nav__item {
+  display: inline;
+  text-align: center;
+  list-style: none;
+  margin: 0px 10px;
+  flex: 1;
+}
+
+.secondary-nav__item_current {
+  font-weight: bold;
+}
+
+/* FOOTER */
+.footer {
+  background-color: var(--primary-blue);
+  padding: 40px 0px;
+}
+
+.footer-image {
+  text-align: center;
+  width: 120px;
+}
+
+.footer-heading {
+  color: rgba(255,255,255, 0.8);
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.footer-paragraph {
+  color: rgba(255,255,255, 0.6);
+}
+
+.footer-social {
+  width: 50px;
+}
+
+/* ------- HOME PAGE ------- */
+.home-banner {
+  padding: 150px 0 150px 0px;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.home-banner h1 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.landing-section {
+  text-align: center;
+}
+
+.action-box {
+  background-color: #efeeff;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 0px 10px;
+}
+
+.room-slider {
+  padding: 0;
+}
+
+/* ------- SEARCH PAGE ------- */
+
+
+/* Room listings - map view */
+
+#mapview {
+  margin: 0px;
+}
+
+.mapviewcolumn {
+  flex-direction: column;
+}
+
+.mapview-left {
+  width: 100%;
+}
+
+.mapview-right {
+  width: 100%;
+  height: 300px;
+}
+
+.mapbox {
+  height: 100%;
+}
+
+#mymap {
+  height: 100%;
+}
+
+.map-results-list {
+  border-right: 1px solid #ddd;
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.map-room-listing {
+  border-bottom: 1px solid #ddd;
+
+}
+
+.map-room-listing h3 {
+  font-size: 1.5em;
+}
+
+.mapboxgl-canvas {
+  left: 0;
+}
+
+/* ------- SHOW PAGE ------- */
+.room-info_core {
+  text-align: center;
+}
+
+.room-info h1 {
+  font-size: 2.2rem;
+}
+
+
+/* ------- ACCOUNT PAGES ------- */
+.booking-listing-2 {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-top: 1px solid #ccc;
+}
+
+.booking-listing-2 p {
+  margin-bottom: 0;
+}
+
+.booking-listing__info {
+  display: flex;
+  align-items: start;
+}
+
+.booking-listing__image {
+  border-radius: 5px;
+  max-width: 70px;
+  text-align: center;
+  margin-right: 15px;
+}
+
+.booking-listing__header {
+  font-weight: 600;
+}
+
+.action-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.action-menu__close {
+  display: none;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #efeeff;
+  border-radius: 10px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.action-menu__actions {
+  display: none;
+}
+
+.action-menu__actions.opened {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 80px;
+  background-color: #efeeff;
+  padding: 8px 13px;
+  box-shadow: 2px 2px 3px rgba(0,0,0, 0.3);
+  border-radius: 5px;
+}
+
+.action-menu__actions.opened .room-action-button {
+  border: 0;
+  color: var(--paragraph-color)!important;
+  padding: 0;
+  margin: 0;
+  line-height: 1.3rem;
+  background: none;
+  font-weight: normal;
+}
+
+.action-menu__actions.opened .room-action-button:focus {
+  box-shadow: none;
+}
+
+.action-menu__actions.opened .room-action-button:active {
+  background: none;
+  border: none;
+}
+
+.action-menu__actions.opened .action-menu__close {
+  display: block;
+}
+
+.action-menu__more {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* ------- FAQs ------- */
+.faq-list {
+  margin-bottom: 40px;
+  margin-top: 15px;
+}
+
+/* ------- SOLOISTA PLUS ------ */
+.soloistaplus-title {
+  opacity: 0;
+  animation: fadein 2s forwards;
+}
+
+.soloistaplus-intro {
+  opacity: 0;
+  animation: fadein 2s 1s forwards;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* DESKTOP DEVICES */
+@media (min-width: 768px) {
+
+/* Core layout */
+[class*="col-"] {
+    margin-bottom: 0px;
+}
+
+.section-block {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.section-block.wavy-top {
+  padding: 120px 0px 60px 0px;
+}
+
+.section-narrow + .section-block {
+  margin-top: -40px;
+}
+
+.secondary-nav {
   background-color: #efeeff;
   width: 100%;
   display: block;
   margin: 0;
+
 }
 
-.current-page {
-  background-color: #0d3e63;
+
+.secondary-nav__item {
+  list-style: none;
+  display: block;
+  margin: 0;
+  padding: 10px 30px;
+  text-align: left;
 }
+
+.secondary-nav__item_current {
+  background-color: var(--primary-blue);
+  color: #fff;
+  font-weight: normal;
+}
+
+.secondary-nav__item_current > a {
+  color: #fff;
+}
+
+.secondary-nav__avatar {
+  padding: 20px 30px;
+  margin: 0;
+  text-indent: 30px;
+  text-align: left;
+  background: url("/static/user.png") 20px no-repeat;
+  background-size: 30px;
+}
+
+/* -------- HOME PAGE ------- */
+.home-banner {
+  padding: 200px 0 250px 0px;
+}
+
+.home-banner h1 {
+  font-size: 2.8em;
+}
+
+
+
+/* ------- SEARCH PAGE ------- */
+
+/* Room listings - map view */
+
+/* Room listings - map view */
+
+#mapview {
+  height: calc(100% - 80px);
+  overflow: hidden;
+  margin: 0px;
+  display: flex;
+}
+
+
+.mapviewcolumn {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mapview-left {
+  flex-shrink: 0;
+  width: 40%;
+}
+
+.mapview-right {
+  width: 100%;
+}
+
+.mapbox {
+  flex-grow: 1;
+  overflow-y: auto;
+  position: relative;
+}
+
+#mymap {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ------- SHOW PAGE ------- */
+.room-info_core {
+  text-align: left;
+}
+
+
+
+/* Booking listing page */
+
+.action-menu__more {
+  display: none;
+}
+
+
+
+.action-menu__actions {
+  display: flex;
+  align-items: center;
+}
+
+
+}
+
+
+
+
+
 
 .current-page > a {
   color: #fff;
@@ -83,7 +572,7 @@ a {
 }
 
 .btn {
-  vertical-align: middle;
+  vertical-align: middlFe;
   border-radius: 0;
 }
 
@@ -153,23 +642,16 @@ a {
 .btn-primary {
   background-color: #0d3e63!important;
   border-color: #0d3e63!important;
+  color: #fff!important;
 }
 
 .text-primary {
   color: #7D70BA!important;
 }
 
-.home-banner {
-  padding: 200px 0 250px 0px;
-  margin-bottom: 0;
-  text-align: center;
-}
 
-.home-banner h1 {
-  font-size: 2.8em;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
+
+
 
 
 .home-banner p {
@@ -228,38 +710,6 @@ a {
   text-decoration: underline;
 }
 
-.section-block {
-  padding-top: 60px;
-  padding-bottom: 60px;
-}
-
-.section-narrow {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-.breadcrumbs {
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  background-color: #efeeff;
-  height: 80px;
-}
-
-.breadcrumbs-items {
-  width: 100%;
-}
-
-.breadcrumbs p {
-  margin-bottom: 0;
-}
-
-.section-narrow + .section-block {
-  margin-top: -40px;
-}
-
-.section-block.wavy-top {
-  padding: 120px 0px 60px 0px;
-}
 
 .image-section {
   background-image: url(/static/newsoloistabackgroundgrey.png);
@@ -374,6 +824,7 @@ a {
 
 .room-listing-image {
   background-size: cover;
+  background-position: center center;
   height: 100%;
   transition: 0.5s transform, 0.5s opacity;
 }
@@ -398,12 +849,12 @@ a {
   padding: 10px 30px!important;
 }
 
-.room-listing a {
+.room-listing a, .room-index a {
   transition: opacity 0.5s;
   color: #333;
 }
 
-.room-listing a:hover {
+.room-listing a:hover, .room-index a:hover {
   opacity:0.5;
   text-decoration: none;
 }
@@ -424,7 +875,7 @@ a {
   margin-top: 10px;
 }
 
-.room-listing .price {
+.room-listing .price, .room-index .price {
   font-size: 1.4rem;
   color: #555;
   margin-bottom: 0;
@@ -436,9 +887,9 @@ a {
   font-size: 0.8rem;
 }
 
-.room-listing .review {
+.room-listing .review, .room-index .review {
   float: right;
-  color: #ff4b2b;
+  color: #f3c131;
 }
 
 .room-name h3 {
@@ -451,60 +902,16 @@ a {
   border-radius: 8px;
 }
 
-/* Room listings - map view */
 
-#mapview {
-  height: calc(100% - 80px);
-  overflow: hidden;
-  margin: 0px;
-  display: flex;
+
+/* Confirm page */
+
+.confirm-booking th:nth-child(1), .confirm-booking td:nth-child(1) { /* I don't think they are 0 based */
+   text-align: left;
 }
 
-
-.mapviewcolumn {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.mapview-left {
-  flex-shrink: 0;
-  width: 40%;
-}
-
-.mapview-right {
-  width: 100%;
-}
-
-.mapbox {
-  flex-grow: 1;
-  overflow-y: auto;
-  position: relative;
-}
-
-#mymap {
-  /*width: 100%;
-  height: 100%; */
-}
-
-.map-results-list {
-  border-right: 1px solid #ddd;
-  flex-grow: 1;
-  overflow-y: auto;
-  padding: 20px;
-}
-
-.map-room-listing {
-  border-bottom: 1px solid #ddd;
-
-}
-
-.map-room-listing h3 {
-  font-size: 1.5em;
-}
-
-.mapboxgl-canvas {
-  left: 0;
+.confirm-booking th:nth-child(2), .confirm-booking td:nth-child(2) { /* I don't think they are 0 based */
+   text-align: right;
 }
 
 
@@ -669,6 +1076,10 @@ a {
   margin-top: -4px;
 }
 
+.room-reviewed {
+  color: #666;
+}
+
 .btn-danger {
   color: #fff!important;
 }
@@ -681,7 +1092,6 @@ a {
 
 
 .login-form p {
-  color: #fff;
   font-weight: 600;
   text-decoration: underline;
 }
@@ -692,9 +1102,12 @@ a {
 }
 
 .login-form {
-  color: #fff;
+  background-color: #fff;
+  padding: 20px;
   font-size: 1em;
-  margin: 30px 0px 100px 0px;
+  margin: 20px 0px;
+  border-radius: 10px;
+  box-shadow: 2px 3px 20px rgba(0,0,0, 0.2);
 }
 
 .login-input {
@@ -703,7 +1116,7 @@ a {
   border-radius: 0;
   font-size: 1.2em;
   line-height: 1.5em;
-  border-bottom: 2px solid #fff;
+  border-bottom: 2px solid #0d3e63;
   padding: 0.6em 0.8em 0.3em 0.8em;
   width: 100%;
   font-weight: 600;
@@ -725,10 +1138,8 @@ a {
 }
 
 .login-input::placeholder {
-  color: #fff;
   font-weight: 600;
-  text-transform: uppercase;
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 
 .register-form .login-input::placeholder {

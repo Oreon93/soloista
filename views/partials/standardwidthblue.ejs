@@ -1,0 +1,17 @@
+<main class="page-body primary-background">
+
+    <% if (successMessage && successMessage.length > 0) { %>
+    <section class="container section-narrow">
+      <div class="alert alert-success" role="alert">
+        <%= successMessage %>
+      </div>
+    </section>
+    <% } %>
+    <% if (errorMessage && errorMessage.length > 0) { %>
+    <section class="container section-narrow">
+      <div class="alert alert-error" role="alert">
+      <%= errorMessage %>
+      </div>
+    </section>
+    <% } %>
+  </section>

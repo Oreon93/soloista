@@ -1,17 +1,31 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
 <% include ../partials/standardwidth %>
+<section class="d-flex breadcrumbs container-fluid section-narrow">
+  <div class="breadcrumbs-items d-flex align-items-center justify-content-between">
+    <p><a href="/">Home</a> &gt; <a href="/rooms">Rooms</a> &gt; Add new room</p>
+  </div>
+</section>
 <section class="section-block container">
+  <% include ../partials/flashmessages %>
   <div class="col-6 mx-auto">
     <h1 class="text-center pb-3">Add a new practice room<h1>
 
-    <form  method="POST" action="/rooms">
+    <form  method="POST" action="/rooms" enctype="multipart/form-data">
       <div class="form-row form-group">
         <div class="col">
           <input class="form-control" type="text" placeholder="Name" name="room[name]">
         </div>
         <div class="col">
           <input class="form-control" type="text" placeholder="Location" name="room[location]">
+        </div>
+      </div>
+      <div class="form-row form-group">
+        <div class="col">
+          <input class="form-control" type="number" step="0.000001" placeholder="Latitude" name="room[lat]">
+        </div>
+        <div class="col">
+          <input class="form-control" type="number" step="0.000001" placeholder="Longitude" name="room[long]">
         </div>
       </div>
       <div class="form-group">
@@ -24,6 +38,11 @@
         </div>
         <div class="col-9">
           <input class="form-control" type="text" placeholder="Image name" name="room[picture]">
+        </div>
+      </div>
+      <div class="form-row form-group">
+        <div class="col">
+          <input class="form-control" type="file" name="roomImage" />
         </div>
       </div>
 

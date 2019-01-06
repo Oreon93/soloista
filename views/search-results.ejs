@@ -2,7 +2,7 @@
   <div class="row room-listing no-gutters">
     <div class="col-4 room-link" style="overflow: hidden; background-color: #000;">
       <a href="/rooms/<%= room.id %>">
-        <div class="room-listing-image" style="background-image: url('/static/images/rooms/<%= room.picture%>')">
+        <div class="room-listing-image" style="background-image: url('/static/<%= room.picture %>')">
         </div>
 
       </a>
@@ -36,9 +36,7 @@
             });
             if (roomBookings.bookings.indexOf(i+8) == -1) {
               if (currentUser) { %>
-            <form id="<%= i %>" action="/rooms/<%= room.id %>/book/<%= i + 8 %>" method="POST">
-              <button type="submit" class="time-slot"><%=  i + 8 + ":00" %></button>
-            </form>
+            <a id="<%= i %>" class="time-slot" href="/rooms/pay?id=<%= room.id %>&date=<%= dateQuery %>&time=<%= i + 8 %>"><%=  i + 8 + ":00" %></a>
             <% } else { %>
             <a id="<%= room.id + (i + 10) %>" class="time-slot enabled"> <%=  i + 8 + ":00" %></a>
             <% }

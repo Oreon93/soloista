@@ -1,7 +1,20 @@
 var express           = require("express"),
     Room              = require("../models/room"),
+    multer            = require('multer'),
+    fs                = require("fs"),
+    stripe            = require("stripe")("sk_test_XWYQA8D09xYv2tHRcklTveuy"),
     router            = express.Router({mergeParams: true});
 
+// Configure image storage
+var imageStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads/images')
+  },
+  filename: function (req, file, cb) {
+    cb(null, "torename.png")
+  }
+});
+var upload = multer({ storage: imageStorage})
 
 // SEARCH ROUTE
 router.get("/search", function(req, res) {
@@ -22,11 +35,12 @@ router.get("/search", function(req, res) {
 // SEARCH REFRESH ROUTE
 router.get("/search-refresh", function(req, res) {
   console.log(req.query.priceMin);
-  Room.find({$and: [{bookings: {$not: {$elemMatch: {$and: [{bookingDate: req.date}, {bookedOut: true}]}}}}, {$and: [{price_per_hour: {$gte: req.query.priceMin}}, {price_per_hour:{$lte: req.query.priceMax}}]}]}).populate("reviews").exec(function(err, foundRooms) {
+  req.app.locals.dateQuery = req.query.date;
+  Room.find({$and: [{bookings: {$not: {$elemMatch: {$and: [{bookingDate: req.query.date}, {bookedOut: true}]}}}}, {$and: [{price_per_hour: {$gte: req.query.priceMin}}, {price_per_hour:{$lte: req.query.priceMax}}]}]}).populate("reviews").exec(function(err, foundRooms) {
     if(err) {
       console.log(err);
     } else {
-      var bookings = generateBookingsAll(foundRooms, req.date, res);
+      var bookings = generateBookingsAll(foundRooms, req.query.date, res);
       console.log("these were the found rooms");
       if (req.query.view == "list") {
         console.log("list view loaded");
@@ -50,6 +64,13 @@ router.get("/", function(req, res) {
   });
 });
 
+// PAY ROUTE
+router.get("/pay", function(req,res) {
+  Room.findById(req.query.id, function(err, foundRoom) {
+    var time = req.query.time;
+    res.render("rooms/pay", {room: foundRoom, time:time});
+  });
+});
 
 // NEW ROUTE
 router.get("/new", isLoggedIn, checkIfAdmin, function(req, res) {
@@ -57,17 +78,31 @@ router.get("/new", isLoggedIn, checkIfAdmin, function(req, res) {
 });
 
 /// CREATE ROUTE
-router.post("/", function(req, res) {
+router.post("/", upload.single('roomImage'), function(req, res) {
+  var coordinates = [req.body.room.long, req.body.room.lat];
   req.body.room.description = req.sanitize(req.body.room.description);
-  Room.create(req.body.room, function(err, newlyCreated) {
+  Room.create({
+    longLat: { type: 'Point', coordinates: coordinates},
+    name: req.body.room.name,
+    description: req.sanitize(req.body.room.description),
+    location: req.body.room.location,
+    price_per_hour: req.body.room.price_per_hour,
+    picture: req.body.room.picture
+  }, function(err, newlyCreated) {
     if(err) {
       console.log(err);
     } else {
       newlyCreated.bookings = [];
+      // Rename the image file
+      var imagePath = 'public/uploads/images/' + newlyCreated.id + ".png"
+      fs.rename('public/uploads/images/torename.png', imagePath, function(err) {
+        if ( err ) console.log('ERROR: ' + err);
+      });
+      newlyCreated.picture = imagePath;
       newlyCreated.save();
       console.log(newlyCreated);
       res.redirect("/rooms");
-    }
+    };
   });
 });
 
@@ -113,7 +148,8 @@ router.get("/:id/edit", isLoggedIn, checkIfAdmin, function(req, res) {
 });
 
 // UPDATE ROUTE
-router.put("/:id", function(req, res) {
+router.put("/:id", upload.single('roomImage'), function(req, res) {
+  console.log(req.body);
   var coordinates = [req.body.room.long, req.body.room.lat];
   Room.findById(req.params.id, function(err, room) {
     if (err) {
@@ -122,6 +158,15 @@ router.put("/:id", function(req, res) {
       room.longLat = { type: 'Point', coordinates: coordinates};
       room.name = req.body.room.name;
       room.description = req.sanitize(req.body.room.description);
+      room.price_per_hour = req.body.room.price_per_hour;
+      room.location = req.body.room.location;
+      // Image stuff
+      var imagePath = 'public/uploads/images/' + room.id + ".png"
+      fs.rename('public/uploads/images/torename.png', 'public/uploads/images/' + room.id + ".png", function(err) {
+        if ( err ) console.log('ERROR: ' + err);
+      });
+      room.picture = 'uploads/images/' + room.id + ".png";
+
       room.save();
       res.redirect("/rooms/" + req.params.id);
     }

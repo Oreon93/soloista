@@ -2,63 +2,93 @@
 <% include ../partials/nav %>
 <% include ../partials/standardwidth %>
 
-<section class="container section-block">
+<section class="d-flex breadcrumbs container-fluid section-narrow">
+  <div class="breadcrumbs-items d-flex align-items-center justify-content-between">
+    <p><a href="/">Home</a> &gt; My account </p>
+  </div>
+</section>
+<section class="container section-narrow">
+  <% include ../partials/flashmessages %>
   <div class="row">
     <div class="col-lg-3">
-      <p class="welcome-message">Hi, Nicholas</p>
-      <p class="secondary-nav current-page"><a href="/account/bookings">My bookings</a></p>
-      <p class="secondary-nav "><a href="/account/settings">Account settings</a></p>
-      <p class="secondary-nav"><a href="/account/reset">Reset password</a></p>
+
+        <ul class="secondary-nav">
+          <p class="secondary-nav__avatar"><%= user.firstname %></p>
+          <li class="secondary-nav__item secondary-nav__item_current"><a href="/account/bookings">My bookings</a></li>
+          <li class="secondary-nav__item "><a href="/account/settings">Account settings</a></li>
+          <li class="secondary-nav__item"><a href="/account/reset">Reset password</a></li>
+        </ul>
     </div>
     <div class="col-lg-9">
       <h2>My upcoming bookings</h2>
-      <section class="section-narrow">
+
+      <section>
       <% upcomingBookings.forEach(function(booking) { %>
-      <div class="row align-items-center booking-listing">
-        <a href="/rooms/<%= booking.room.id %>">
-        <div class="col-2 align-self-stretch booking-image" style="background-image: url('/static/images/rooms/<%= booking.room.picture%>'); background-size: cover">
-          <a href="/rooms/<%= booking.room.id %>">
-            <span class="block-link"></span>
-          </a>
-        </div>
-        <div class="room-info col-4">
-          <p class="room-location"><%= booking.room.name %></p>
-          <p class="room-time"><b><%= moment(booking.exactTime).format("D MMMM | HH:mm") %> - <%= moment(booking.exactTime).add(1, "hours").format("HH:mm") %></b></p>
-        </div>
-          <div class="col-6 booking-utilities align-self-stretch d-flex">
-            <p class="room-code ">
-              <span style="font-size: 0.5em;font-weight: 400;letter-spacing: 0px;">YOUR CODE:</span>
-              <br>
-              <%= booking.code %>
+        <div class="row booking-listing-2">
+          <div class="col-6 booking-listing__info">
+            <a href="/rooms/<%= booking.room.id %>">
+              <img class="booking-listing__image img-fluid" src="/static/<%= booking.room.picture %>">
+            </a>
+            <p><span class="booking-listing__header"><%= booking.room.name %></span>
+            <br>
+            <%= moment(booking.exactTime).format("D MMMM | HH:mm") %> - <%= moment(booking.exactTime).add(1, "hours").format("HH:mm") %></p>
+          </div>
+          <div class="col-3">
+            <p><span class="booking-listing__header">Code:</span>
+            <br>
+            <%= booking.code %>
             </p>
-            <div class="d-flex flex-grow-1 justify-content-end">
-            <a href="/bookings/<%= booking.id %>/incidents/new" class="room-action-button btn btn-outline-warning">Report issue</a>
-            <form class="room-action-form" action="/bookings/<%= booking.id %>?_method=DELETE" method="POST">
-              <button class="room-action-button btn btn-danger">Cancel</button>
-            </form>
+          </div>
+          <div class="col-3 action-menu">
+            <i class="action-menu__more fas fa-ellipsis-v"></i>
+            <div class="action-menu__actions" id="<%= booking.id %>">
+              <i class="action-menu__close fas fa-times"></i>
+              <a href="/bookings/<%= booking.id %>/incidents/new" class="room-action-button btn btn-sm btn-outline-warning">Report issue</a>
+              <form class="room-action-form" action="/bookings/<%= booking.id %>?_method=DELETE" method="POST">
+                <button class="room-action-button btn btn-sm btn-danger">Cancel</button>
+              </form>
             </div>
           </div>
-      </div>
+        </div>
       <% }); %>
       </section>
+
+      <section class="section-narrow">
       <h2>Past bookings</h2>
       <div class="row">
       <% pastRoomsAndReviews.forEach(function(room) { %>
-        <div class="col-4">
-          <img class="img-fluid" src="/static/images/rooms/<%= room.picture %>">
+        <div class="col-3">
+          <img class="img-fluid" src="/static/<%= room.picture %>">
           <p class="room-card-title"><%= room.name %></p>
           <% if (room.hasReview == true) { %>
-            <p class="text-faded"><i class="fas fa-check tickmark"></i>  Already reviewed </p>
+            <p class="room-reviewed"><i class="fas fa-check tickmark"></i>  Already reviewed </p>
           <% } else { %>
           <a href="/rooms/<%= room._id %>/reviews/new" class="btn btn-sm btn-outline-primary">Leave review</a>
           <% } %>
         </div>
       <% }) %>
       </div>
+      </section>
     </div>
   </div>
 
 
 </section>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="/static/jquery-ui.js"></script>
+<!--<script>
+$(document).ready(function(){
+$(".action-menu__more").click(function() {
+  $(this).next().addClass("opened");
+})
+
+$(".action-menu__close").click(function() {
+  $(this).parent().removeClass("opened")
+})
+
+
+});
+
+</script>-->
 
 <% include ../partials/footer %>

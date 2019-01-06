@@ -58,3 +58,32 @@ Booking system
 - Added filters and Ajax to refresh rooms without reloading page
 - Added a "map view" with rooms plotted on a map, using Mapbox. Rooms now have GeoJSON coordinates in the room model.
 - User can now book a room book a room from the individual room page, as well as change the search date and refresh the available time slots
+
+
+## 0.5 - 06/01/2018
+
+Booking system
+- Fixed an issue where users who were not logged in could not book a room from the individual room page
+
+Payment
+- Added Stripe payments and a "Pay" page where the user's booking is confirmed
+- All booking routes now lead to the "Pay" page
+
+Room editing
+- Administrator can now upload images to the server for the room
+- Administrator can now edit the coordinates of the room
+
+Static pages
+- Added FAQs page
+- Added Soloista+ page
+- Added Contact form functionality on landing page using NodeMailer
+
+HTML
+- Breadcrumbs added to all relevant pages
+- Flash messages "spun out" into partial and added to relevant pages
+- Added footer
+
+CSS
+- General CSS improvements
+- Some reorganisation of the main.css file
+- All pages now responsive

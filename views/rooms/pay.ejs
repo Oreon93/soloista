@@ -1,0 +1,62 @@
+<% include ../partials/header %>
+<% include ../partials/nav %>
+<% include ../partials/standardwidth %>
+<section class="d-flex breadcrumbs container-fluid section-narrow">
+  <div class="breadcrumbs-items d-flex align-items-center justify-content-between">
+    <p><a href="/">Home</a> &gt; <a href="/rooms/search?date=<%= dateQuery.replace(/-/g, "%2F") %>">Search results</a> &gt; Confirm & Pay</p>
+  </div>
+</section>
+<section class="container section-block text-center">
+  <div class="col-12 col-md-6 mx-auto">
+  <% include ../partials/flashmessages %>
+    <h1>Almost booked...</h1>
+    <p>Review your booking below then click "Pay with Card" to book.</p>
+    <table class="table confirm-booking">
+    <tr>
+      <td>Room
+      </td>
+      <td>
+        <%= room.name %>
+      </td>
+    </tr>
+    <tr>
+      <td>Date
+      </td>
+      <td>
+        <%= moment(dateQuery, "MM-DD-YYYY").format("dddd, D MMMM") %>
+      </td>
+    </tr>
+    <tr>
+      <td>Time
+      </td>
+      <td>
+        <%= time %>:00 - <%= parseInt(time)+1 %>:00
+      </td>
+    </tr>
+    <tr>
+      <th>Price
+      </th>
+      <th>
+        €<%= room.price_per_hour %>0
+      </th>
+    </tr>
+    </table>
+
+
+
+    <form action="/rooms/<%= room.id %>/book/<%= time %>" method="POST">
+      <script
+        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+        data-key="pk_test_3iuI3obCCB4tAZj5YvQb3e9D"
+        data-amount="<%= room.price_per_hour * 100 %>"
+        data-name="<%= room.name %>"
+        data-description="<%= moment(dateQuery, "MM-DD-YYYY").format("dddd, D MMMM") %> at <%= time %>:00"
+        data-image="/static/logo-for-stripe2.png"
+        data-locale="auto"
+        data-currency="eur"
+        data-zip-code="true">
+      </script>
+    </form>
+  </div>
+</section>
+<% include ../partials/footer %>

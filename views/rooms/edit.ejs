@@ -1,11 +1,17 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
 <% include ../partials/standardwidth %>
+<section class="d-flex breadcrumbs container-fluid section-narrow">
+  <div class="breadcrumbs-items d-flex align-items-center justify-content-between">
+    <p><a href="/">Home</a> &gt; <a href="/rooms">Rooms</a> &gt; <a href="/rooms/<%= room.id %>"><%= room.name %></a> &gt; Edit room</p>
+  </div>
+</section>
 <section class="section-block container">
+  <% include ../partials/flashmessages %>
   <div class="col-6 mx-auto">
-    <h1 class="text-center pb-3">Edit practice room<h1>
+    <h1 class="text-center pb-3">Edit practice room</h1>
 
-    <form  method="POST" action="/rooms/<%= room.id %>?_method=PUT">
+    <form  method="POST" action="/rooms/<%= room.id %>?_method=PUT" enctype="multipart/form-data">
       <div class="form-row form-group">
         <div class="col">
           <input class="form-control" type="text" placeholder="Name" value="<%= room.name %>" name="room[name]">
@@ -27,11 +33,21 @@
 
       </div>
       <div class="form-row form-group">
-        <div class="col-3">
-          <input class="form-control" type="number" placeholder="Hourly price" value="<%= room.price_per_hour %>" name="room[price_per_hour]">
+        <div class="col">
+          <input class="form-control" type="number" step="0.1" placeholder="Hourly price" value="<%= room.price_per_hour %>" name="room[price_per_hour]">
         </div>
-        <div class="col-9">
-          <input class="form-control" type="text" placeholder="Image name" value="<%= room.picture %>" name="room[picture]">
+      </div>
+
+      <div class="form-row-form-group">
+        <p>
+          <a id="imageFileCollapse" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Edit room image <i class="fas fa-angle-down"></i>
+          </a>
+        </p>
+        <div class="collapse" id="collapseExample">
+          <div class="col">
+            <input id="imageFile" disabled class="form-control" type="file" name="roomImage" />
+          </div>
         </div>
       </div>
 
@@ -41,3 +57,8 @@
 </section>
 
 <% include ../partials/footer %>
+<script>
+$('#imageFileCollapse').click(function() {
+  $('#imageFile').prop('disabled', function(i, v) { return !v; });
+})
+</script>

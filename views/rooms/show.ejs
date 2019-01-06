@@ -1,66 +1,71 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
 <% include ../partials/standardwidth %>
-<section class="container section-block">
-<div class="row">
-  <div class="col-7">
-    <img class="img-fluid" src="/static/images/rooms/<%= room.picture %>">
+<section class="d-flex breadcrumbs container-fluid section-narrow">
+  <div class="breadcrumbs-items d-flex align-items-center justify-content-between">
+    <p><a href="/">Home</a> &gt; <a href="/rooms">Rooms</a> &gt; <%= room.name %></p>
   </div>
-  <div class="col-5 d-flex flex-column room-info">
-    <h1><%= room.name %></h1>
-    <p class="room-location"><%= room.location %></p>
-    <p><span class="rating"><%
-      var total_rating = 0;
-      room.reviews.forEach(function(review) {
-        total_rating += review.rating;
-      });
-      var average = total_rating / room.reviews.length;
-      for (i=0; i<average; i++) { %>★<% } %>
-    </span>
-    (<%= room.reviews.length %> review<% if (room.reviews.length !== 1) { %>s<% } %>)</p>
-    <p><%= room.description %></p>
-    <div class="room-availability">
-      <h3>Book now </h3>
-      <div class="date-filter-room-show">
-      <% if (typeof dateQuery == 'string' && dateQuery) { %>
-      <input type="text" id="datepicker" placeholder="<%= moment(dateQuery, "MM-DD-YYYY").format("dddd, D MMMM") %>"></input>
-      <% } else { %>
-      <input type="text" id="datepicker" placeholder="Choose a date"></input>
-      <% } %>
+</section>
+<section class="container section-block">
+  <% include ../partials/flashmessages %>
+  <div class="row">
+    <div class="col-12 col-md-7">
+      <img class="img-fluid" src="/static/<%= room.picture %>">
+    </div>
+    <div class="col-12 col-md-5 d-flex flex-column room-info">
+      <div class="room-info_core">
+        <h1><%= room.name %></h1>
+        <p class="room-location"><%= room.location %></p>
+        <p><span class="rating"><%
+          var total_rating = 0;
+          room.reviews.forEach(function(review) {
+            total_rating += review.rating;
+          });
+          var average = total_rating / room.reviews.length;
+          for (i=0; i<average; i++) { %>★<% } %>
+        </span>
+        (<%= room.reviews.length %> review<% if (room.reviews.length !== 1) { %>s<% } %>)</p>
       </div>
-      <div class="row" id="bookings">
-        <% for (i=0; i<12; i++) { %>
-        <div class="col-3">
-          <%
-
-            if (bookings.indexOf(i+8) == -1) {
-            if (currentUser) { %>
-          <form id="<%= i %>" action="/rooms/<%= room.id %>/book/<%= i + 8 %>" method="POST">
-            <button type="submit" class="time-slot"><%=  i + 8 + ":00" %></button>
-          </form>
-          <% } else { %>
-          <a id="<%= room.id + (i + 8) %>" class="time-slot enabled"> <%=  i + 8 + ":00" %></a>
-          <% }
-          } else { %>
-          <div class="time-slot disabled"><%=  i + 8 + ":00" %></div>
+      <p><%= room.description %></p>
+      <div class="room-availability">
+        <h3>Book now </h3>
+        <div class="date-filter-room-show">
+        <% if (typeof dateQuery == 'string' && dateQuery) { %>
+        <input type="text" id="datepicker" placeholder="<%= moment(dateQuery, "MM-DD-YYYY").format("dddd, D MMMM") %>"></input>
+        <% } else { %>
+        <input type="text" id="datepicker" placeholder="Choose a date"></input>
+        <% } %>
+        </div>
+        <div class="row" id="bookings">
+          <% for (i=0; i<12; i++) { %>
+          <div class="col-3">
+            <% if (bookings.indexOf(i+8) == -1) {
+              if (currentUser) { %>
+            <a id="<%= i %>" class="time-slot" href="/rooms/pay?id=<%= room.id %>&date=<%= dateQuery %>&time=<%= i + 8 %>"><%=  i + 8 + ":00" %></a>
+            <% } else { %>
+            <!-- Just to clarify, i+10 is a quick way of ensuring all times are at least two digits long, to avoid problems when splicing the string. Quick & dirty! -->
+            <a id="<%= room.id + (i + 10) %>" class="time-slot enabled"> <%=  i + 8 + ":00" %></a>
+            <% }
+            } else { %>
+            <div class="time-slot disabled"><%=  i + 8 + ":00" %></div>
+            <% } %>
+          </div>
           <% } %>
         </div>
-        <% } %>
+
       </div>
+      <!---- Admin room actions ----!>
+      <% if (currentUser && currentUser.isAdmin == true) {%>
+      <div class="mt-auto p-2">
+        <a href="<%= "/rooms/" + room.id + "/edit" %>" class="btn btn-outline-info mr-1">Edit</a>
+        <form class="same-line" action="/rooms/<%= room.id %>?_method=DELETE" method="POST">
+          <button class="btn btn-outline-primary">Delete</button>
+        </form>
+      </div>
+      <% } %>
+    </div>
 
-    </div>
-    <!---- Admin room actions ----!>
-    <% if (currentUser && currentUser.isAdmin == true) {%>
-    <div class="mt-auto p-2">
-      <a href="<%= "/rooms/" + room.id + "/edit" %>" class="btn btn-outline-info mr-1">Edit</a>
-      <form class="same-line" action="/rooms/<%= room.id %>?_method=DELETE" method="POST">
-        <button class="btn btn-outline-primary">Delete</button>
-      </form>
-    </div>
-    <% } %>
   </div>
-
-</div>
 </section>
 <div class="container">
   <hr/>
@@ -87,7 +92,8 @@ $(document).ready(function(){
   // Popup modal if sommeone tries to book but isn't logged in
   $("#bookings").on("click", ".time-slot.enabled", function(event) {
     var id = event.target.id.substring(0, event.target.id.length - 2);
-    var time = parseInt(event.target.id.substring(event.target.id.length - 2));
+    var time = parseInt(event.target.id.substring(event.target.id.length - 2))-2;
+    console.log(id + " is the id");
 
     $.ajax({
       type: "POST",

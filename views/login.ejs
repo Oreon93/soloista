@@ -1,40 +1,43 @@
-<% include partials/headernonav %>
-<section class="section-block container-fluid" style="background-image: url('static/piano2.jpg'); background-size: cover; position: relative">
-
-  <div class="col-lg-4 col-md-6 col-sm-8 mx-auto">
-      <a href="/"><img src="static/logowhite.png" class="img-fluid mx-auto" style="display: block; width: 140px"></a>
+<% include partials/header %>
+<% include partials/nav %>
+<% include partials/standardwidthgrey %>
+<section class="top-banner section-narrow">
+  <div class="col-lg-4 col-md-6 col-sm-8 mx-auto text-center">
+    <!-- Flash messages embedded directly instead of as a partial, because it has the potential to replace part of the page -->
+    <% if (successMessage && successMessage.length > 0) { %>
+    <div class="alert alert-success" role="alert">
+      <%= successMessage %>
+    </div>
+    <% } else if (errorMessage && errorMessage.length > 0) { %>
+    <div class="alert alert-error" role="alert">
+    <%= errorMessage %>
+    </div>
+    <% } else { %>
+    <img src="/static/saxophone.png" width="70"/>
+    <h2 class="message text-center">Welcome back!</h2>
+    <p>Log in to manage your bookings</p>
+    <% } %>
     <div class="login-form">
       <form action="/login" method="POST">
         <input class="login-input" name="username" type="text" placeholder="E-mail">
         <input class="login-input" name="password" type="password" placeholder="Password">
-        <button class="btn btn-secondary btn-block ">Log in</button>
-        <a href="/forgot"><p class="text-center mt-3 mb-5">Forgot password?</p></a>
+        <button class="btn btn-primary btn-block ">Log in</button>
+        <a href="/register" class="btn btn-secondary btn-block ">Sign up</a>
+        <div class="row">
+          <div class="col">
+
+          </div>
+          <div class="col">
+
+          </div>
+        </div>
+
       </form>
+
     </div>
+    <a href="/forgot"><p class="text-center mt-3 mb-5">Forgot password?</p></a>
   </div>
 
-
-<svg viewbox="0,0, 1000, 100" style="width:100%; position: absolute; bottom: 0; left:0">
-  <path id="Unnamed"
-  fill="white" stroke="none" stroke-width="1"
-  d="M 1000.00,100.00
-           C 1000.00,100.00 999.67,78.75 999.67,78.75
-             958.42,54.65 883.00,43.75 818.00,46.25
-             783.00,47.50 746.00,62.50 672.00,48.75
-             595.00,35.00 540.00,31.67 488.00,31.67
-             413.00,29.17 400.00,48.75 312.00,53.75
-             244.00,50.00 245.00,45.83 185.00,47.50
-             -35.00,61.96 0.10,101.96 0.00,100.00
-             0.00,100.00 1000.00,100.00 1000.00,100.00 Z" />
-</svg>
-</section>
-<section class="overlap">
-  <div class="col-lg-4 col-md-8 mx-auto">
-    <div class=" d-flex justify-content-center align-items-center">
-      <p class="my-1 no-account">Don't have an account?</p>
-      <a href="/register" class="btn btn-lg btn-primary home-primary-btn">Sign up</a>
-    </div>
-  </div>
 </section>
 
 <% include partials/footer %>

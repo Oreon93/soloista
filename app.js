@@ -6,6 +6,8 @@ var express           = require("express"),
     async             = require('async'),
     path              = require('path'),
     serveStatic       = require('serve-static'),
+    multer            = require('multer')
+    upload            = multer({ dest: 'uploads/' })
     methodOverride    = require('method-override'),
     expressSanitizer  = require('express-sanitizer'),
     Booking           = require("./models/booking"),
@@ -18,7 +20,8 @@ var express           = require("express"),
     passportLocalMongooose = require("passport-local-mongoose"),
     moment            = require('moment'),
     crypto            = require('crypto'),
-    flash             = require('connect-flash');
+    flash             = require('connect-flash'),
+    stripe            = require("stripe")("sk_test_XWYQA8D09xYv2tHRcklTveuy");
 
 mongoose.connect("mongodb://localhost/soloista");
 app.use('/static', express.static('public'));
@@ -67,6 +70,8 @@ app.use("/account", accountRoutes);
 app.use("/rooms/:id/reviews", reviewsRoutes);
 app.use("/", indexRoutes);
 
+//Set date to today by default
+app.locals.dateQuery = moment().format("MM-DD-YYYY");
 
 /* ---------- MAPBOX CONFIG ----------- */
 
@@ -126,6 +131,14 @@ app.post("/rooms/:id/book/:time", function(req, res) {
       console.log(err);
     }
     else {
+      const token = req.body.stripeToken;
+      console.log(token);
+      const charge = stripe.charges.create({
+        amount: room.price_per_hour*100,
+        currency: 'eur',
+        description: 'Example charge',
+        source: token,
+      });
       var existingDay = room.bookings.find(function(booking) {
         return booking.bookingDate == app.locals.dateQuery;
       });
@@ -180,37 +193,49 @@ function filterByDate(req, res, date) {
 
 app.post("/loginmodal", function(req, res) {
   var room = Room.findById(req.body.id, function(err, foundRoom) {
+    console.log("Login modal");
+    console.log(foundRoom);
+    req.session.returnTo = "/rooms/pay?id=" + foundRoom.id + "&date=" + req.app.locals.dateQuery + "&time=" + req.body.time;
     res.render("loginmodal", {room: foundRoom, time: req.body.time});
   })
-})
-
-app.post("/loginandbook/:id/:time", passport.authenticate("local"), function(req, res) {
-  res.redirect(307, "/rooms/"+ req.params.id + "/book/" + req.params.time );
 });
 
+
+
 app.delete("/bookings/:id", function(req, res) {
-  Booking.findByIdAndRemove(req.params.id, function(err, booking) {
-    if (err) {
-      res.redirect("/rooms");
-    } else {
-      Room.findById(booking.room, function(err, room) {
+  async.waterfall([
+    function(done) {
+      Booking.findByIdAndRemove(req.params.id, function(err, booking) {
+        if (err) {
+          res.redirect("/rooms");
+        } else {
+          done(err, booking);
+        }
+      });
+    },
+    function(booking, done) {
+      Room.findById(booking.room, function(err, room, next) {
         var dateToDeleteFrom = room.bookings.find(function(individualBooking) {
           return individualBooking.bookingDate == booking.date;
         });
         var filteredSlots = dateToDeleteFrom.slots.filter(function(e) { return e !== booking.time });
         dateToDeleteFrom.slots = filteredSlots;
+        cancelledRoom = room.name;
         room.save();
+        done(cancelledRoom, 'done');
       });
-      res.redirect("/account/bookings");
     }
+  ], function(cancelledRoom) {
+    req.flash("success", "Your booking for the " + cancelledRoom + " has been cancelled.");
+    res.redirect("/account/bookings");
   });
 });
 
 
 /* ------------------- OTHER ROUTES ----------------- */
 
-app.get("/soloistaplus", isLoggedIn, function(req, res) {
-  res.render("soloistaplus", {isLoggedIn: "Hello"});
+app.get("/soloistaplus", function(req, res) {
+  res.render("soloistaplus");
 })
 
 app.listen(3000);

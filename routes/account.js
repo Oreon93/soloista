@@ -22,7 +22,7 @@ router.get("/bookings", isLoggedIn, function(req, res) {
       uniquePastRooms = pastRooms(foundUser.toObject());
       // Add which rooms the user has already reviewed, so the user isn't asked again to review them
       pastRoomsAndReviews = indicateWhichReviewed(uniquePastRooms, foundUser.reviews);
-      res.render("account/bookings", {theUser: foundUser, upcomingBookings: upcomingBookings, pastRoomsAndReviews: pastRoomsAndReviews});
+      res.render("account/bookings", {user: foundUser, upcomingBookings: upcomingBookings, pastRoomsAndReviews: pastRoomsAndReviews});
     }
   });
 });

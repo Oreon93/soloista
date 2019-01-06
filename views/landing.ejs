@@ -1,14 +1,14 @@
 <% include partials/headerhome %>
 
-<div class="jumbotron jumbotron-fluid home-banner" style="position: relative; background-image: url('static/newsoloistabackgroundgrey.png'); background-size: cover">
+<div class="jumbotron jumbotron-fluid home-banner" style="position: relative; background-image: url('static/newsoloistabackgroundgrey.png'); background-size: cover; background-position: center center">
   <div class="container">
     <h1>Find the space to <span class="emphasis">express yourself.</span></h1>
     <p class="lead">Quality music practice rooms in the heart of Barcelona, bookable by the hour.</p>
       <form class="home-search" method="GET" action="/rooms/search">
-          <div class="col-4 align-self-center">
-            <input type="text" class="form-control form-control-lg" id="datepicker" autocomplete="off" name="date" placeholder="--/--/----">
+          <div class="col-12 col-md-4 align-self-center">
+            <input type="text" class="form-control form-control-lg" id="datepicker" autocomplete="off" name="date" placeholder="Select your date">
           </div>
-          <div class="col-4">
+          <div class="col-12 col-md-4">
               <button class="btn btn-primary btn-lg home-primary-btn" href="#"><i class="fas fa-search"></i> Find rooms</button>
           </div>
       </form>
@@ -27,7 +27,7 @@
   </svg>
 </div>
 <div class="container">
-  <section class="section-block">
+  <section class="section-block landing-section">
     <div class="row">
       <div class="col-12 text-center">
         <h2>Booking with Soloista is simple.</h2>
@@ -68,36 +68,43 @@
   </section>
   <section class="section-block">
     <div class="row">
-      <div class="col-5">
+      <div class="col-12 col-md-5 room-slider">
         <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+
           <div class="carousel-inner">
             <div class="card carousel-item active">
-              <img class="card-img-top" src="static/images/rooms/pianoroom1.jpg">
-              <div class="card-body">
+              <a href="/rooms/5b82798c6ec99124c8d442f6">
+                <img class="card-img-top" src="static/images/rooms/pianoroom1.jpg">
+              </a>
+              <div class="d-none d-md-block card-body">
                 <h5 class="card-title"><b>El Born</b> | Suarez Room</h5>
                 <h6 class="card-subtitle text-muted">&euro;3.50 per hour</h6>
                 <div class="text-right">
-                  <a class="btn btn-outline-primary">Book</a>
+                  <a class="btn btn-primary" href="/rooms/5b82798c6ec99124c8d442f6">Book</a>
                 </div>
               </div>
             </div>
             <div class="card carousel-item">
-              <img class="card-img-top" src="static/images/rooms/pianoroom2.jpg">
-              <div class="card-body">
+              <a href="/rooms/5b7f17cdb4124b2748831e44">
+                <img class="card-img-top" src="static/images/rooms/pianoroom2.jpg">
+              </a>
+              <div class="d-none d-md-block card-body">
                 <h5 class="card-title"><b>Raval</b> | San Antonio Room</h5>
                 <h6 class="card-subtitle text-muted">&euro;5.50 per hour</h6>
                 <div class="text-right">
-                  <a class="btn btn-outline-primary">Book</a>
+                  <a class="btn btn-primary" href="/rooms/5b7f17cdb4124b2748831e44">Book</a>
                 </div>
               </div>
             </div>
             <div class="card carousel-item">
-              <img class="card-img-top" src="static/images/rooms/pianoroom3.jpg">
-              <div class="card-body">
+              <a href="/rooms/5b82906fbed1d5423c290552">
+                <img class="card-img-top" src="static/images/rooms/pianoroom3.jpg">
+              </a>
+              <div class="d-none d-md-block card-body">
                 <h5 class="card-title"><b>Eixample</b> | Balmes Suite</h5>
                 <h6 class="card-subtitle text-muted">&euro;8.00 per hour</h6>
                 <div class="text-right">
-                  <a class="btn btn-outline-primary room-card">Book</a>
+                  <a class="btn btn-primary" href="/rooms/5b82906fbed1d5423c290552">Book</a>
                 </div>
               </div>
             </div>
@@ -106,15 +113,22 @@
       </div>
       <div class="col-1">
       </div>
-      <div class="col-6">
-        <h2>Explore our spaces</h2>
-        <p class="lead">Whether you're a solo artist, band, or music teacher - we have a room for you.</p>
-        <ul class="tick">
-          <li><strong>Complete focus</strong><br>All rooms fully sound-proofed</li>
-          <li><strong>Fully equipped</strong><br>Piano available in every room</li>
-          <li><strong>Easy to access</strong><br>All our rooms are close to a metro</li>
-        </ul>
-        <a class="btn btn-secondary btn-lg" href="#">See all rooms <i class="fas fa-angle-right"></i></a>
+      <div class="col-12 col-md-6 ">
+        <div class="d-md-none action-box landing-section">
+          <h3>Explore our spaces</h3>
+          <p>Whether you're a solo artist, band, or music teacher - we have a room for you.</p>
+          <a class="btn btn-primary" href="/rooms">See all rooms <i class="fas fa-angle-right"></i></a>
+        </div>
+        <div class="d-none d-md-block">
+          <h2>Explore our spaces</h2>
+          <p class="lead">Whether you're a solo artist, band, or music teacher - we have a room for you.</p>
+          <ul class="tick">
+            <li><strong>Complete focus</strong><br>All rooms fully sound-proofed</li>
+            <li><strong>Fully equipped</strong><br>Piano available in every room</li>
+            <li><strong>Easy to access</strong><br>All our rooms are close to a metro</li>
+          </ul>
+          <a class="btn btn-secondary btn-lg" href="/rooms">See all rooms <i class="fas fa-angle-right"></i></a>
+        </div>
       </div>
 
     </div>
@@ -137,12 +151,14 @@
   <section class="section-block wavy-top">
     <div class="container">
       <div class="row py-5">
-        <div class="col-6 cover-text">
+        <div class="col-12 col-md-6 cover-text">
           <h2 class="pb-3">Introducing Soloista<strong>+</strong></h2>
           <p class="lead">Soloista+ is for committed musicians. It gives you guaranteed access to our facilities to practice.</p>
           <p class="lead"> Pick a room and a time slot and it'll be reserved for you, week in, week out. Membership is paid monthly.</p>
           <p class="lead">Soloista+ saves you <b>20% compared to renting a room on an ad-hoc basis.</b></p>
-          <a class="btn btn-white" href="#">See pricing <i class="fas fa-angle-right"></i></a>
+          <a class="btn btn-white" href="/soloistaplus">Learn more <i class="fas fa-angle-right"></i></a>
+          <br>
+          <br>
         </div>
       </div>
     </div>
@@ -166,23 +182,21 @@
         <h2>Questions?</h2>
         <p class="lead">Take a look at our <a href="#">FAQs</a> or contact us below:</p>
       </div>
-      <div class="col-6 text-center">
-        <form>
+      <div id="contact" class="col-6 text-center">
+        <form action="/contact" method="POST">
           <div class="form-group">
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            <input type="email" name="message[email]" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your email">
           </div>
           <div class="form-group">
-            <textarea class="form-control" id="message" placeholder="Your question"></textarea>
+            <textarea name="message[text]" class="form-control" id="message" placeholder="Your question"></textarea>
           </div>
-          <button type="submit" class="btn btn-secondary">Submit</button>
+          <button type="submit" class="btn btn-secondary">Submit <i class="fas fa-angle-right"></i></button>
         </form>
       </div>
 
     </div>
   </div>
 </div>
-
-<iframe src="https://snazzymaps.com/embed/86746" width="100%" height="600px" style="border:none;"></iframe>
 
 
 <% include partials/footer %>

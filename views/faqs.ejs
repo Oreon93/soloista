@@ -1,0 +1,182 @@
+<% include partials/header %>
+<% include partials/nav %>
+<% include partials/standardwidth %>
+<section class="d-flex breadcrumbs container-fluid section-narrow">
+  <div class="breadcrumbs-items d-flex align-items-center justify-content-between">
+    <p><a href="/">Home</a> &gt; FAQs </p>
+  </div>
+</section>
+<section class="container section-narrow">
+  <% include partials/flashmessages %>
+  <h1 class="text-center">Frequently asked questions</h1>
+  <h2>About Soloista</h2>
+  <div class="faq-list" id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Is Soloista real?
+          </button>
+        </h5>
+      </div>
+
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+          <p>No - Soloista is a fictional company and none of the practice rooms on this site are real. If you try to book a room on this site you won't be charged, and you won't actually be able to find the practice room you booked.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Why does this website exist?
+          </button>
+        </h5>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div class="card-body">
+          <p>The Soloista website is a web development project with the aim of becoming familiar with Node, Express and MongoDB. Building a booking system is a reasonably challenging task and a useful skill in various sectors. Aside from this, I believe it is a promising business idea. Unfortunately, as with many things, the tech is the straightforward part - the actual construction and renting out of practice rooms is far more complex.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            How functional is the website?
+          </button>
+        </h5>
+      </div>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+        <div class="card-body">
+          <p>The Soloista website includes:</p>
+          <ul>
+            <li><b>a fully-working booking system</b> - filter rooms by date and price, and select a slot to book your room. Cancel bookings from your account area.</li>
+            <li><b>a payment system</b> - handled with Stripe</li>
+            <li><b>user registration and login</b> - including server-side authentication (using Passport) and a password reset system (using NodeMailer)</li>
+            <li><b>user roles</b> - only the admin can add, edit or delete rooms, or delete reviews.</li>
+            <li><b>user permissions</b> - you can only review rooms which you have visited in the past.</li>
+            <li><b>location</b> - rooms are plotted on a Mapbox map with GeoJSON</li>
+          </ul>
+          <p>You can view development notes for the Soloista website <a href="https://github.com/Oreon93/soloista">on my Github</a>. This includes a full list of potential future features, such as:</p>
+          <ul>
+            <li>varying a room's opening hours and customising availability</li>
+            <li>searching rooms by location</li>
+            <li>adding filters for room features, such as the type of piano or sound equipment</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h2>Booking a room</h2>
+  <div class="faq-list" id="accordion2">
+    <div class="card">
+      <div class="card-header" id="headingFour">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            How do I access a room using my code?
+          </button>
+        </h5>
+      </div>
+      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion2">
+        <div class="card-body">
+          <p>Hypothetically, you would go to the practice room and enter your code on the keypad on the door. If this doesn't work, please let us know by going to your account, locating your booking and clicking "report issue".</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingFive">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+            Can I book for more than one hour?
+          </button>
+        </h5>
+      </div>
+
+      <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion2">
+        <div class="card-body">
+          <p>As long as there are two available slots next to each other, yes you can!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" id="headingSix">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+            Can I book a room to practice with friends?
+          </button>
+        </h5>
+      </div>
+      <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion2">
+        <div class="card-body">
+          <p>Absolutely - despite the name, Soloista is not just for soloists. It's not even just for friends - practice with mild acquaintences or enemies if you want! The only restriction we have is that our practice rooms have a maximum capacity of ten people, due to fire safety regulations. </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h2>Soloista+</h2>
+  <div class="faq-list" id="accordion3">
+    <div class="card">
+      <div class="card-header" id="headingSeven">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+            When will Soloista+ become available?
+          </button>
+        </h5>
+      </div>
+      <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion3">
+        <div class="card-body">
+          <p>Soloista+ is core to our business model, so it will become available no later than Soloista itself. Unfortunately, there is no firm release date for Soloista.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingEight">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseEight" aria-expanded="true" aria-controls="collapseEight">
+            Can I "gift" a Soloista+ subscription?
+          </button>
+        </h5>
+      </div>
+
+      <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordion3">
+        <div class="card-body">
+          <p>You can certainly purchase a Soloista+ subscription on behalf of someone else. Whether it is ultimately seen as a gift is entirely out of our hands - it depends on the relationship you have with that person and whether they actually want to practice music. Please don't force your children into music if that's not their interest!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" id="headingNine">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+            How many hours of practice would you recommend a week?
+          </button>
+        </h5>
+      </div>
+      <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordion3">
+        <div class="card-body">
+          <p>We recommend at least three hours a week to make any meaningful progress. Of course, <em>how</em> you practise is equally important, and having a tutor can help enormously. If you're doing more than two hours a day, you're either a) cramming for an exam or concert, b) pursuing this as a vocation, or c) going to burn out.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingTen">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+            Can I use your rooms to teach on a regular basis?
+          </button>
+        </h5>
+      </div>
+      <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordion3">
+        <div class="card-body">
+          <p>We'd love to see music teachers making use of our spaces. Please <a href="/#contact">contact us</a> if you'd like to use our rooms as a teacher.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+<% include partials/footer %>
