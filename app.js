@@ -241,7 +241,8 @@ app.get("/soloistaplus", function(req, res) {
   res.render("soloistaplus");
 })
 
-app.listen(3000);
+var port = process.env.PORT || 3000;
+app.listen(port);
 
 /* ------------------- RANDOM FUNCTIONS -------------------- */
 
