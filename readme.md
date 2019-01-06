@@ -87,3 +87,8 @@ CSS
 - General CSS improvements
 - Some reorganisation of the main.css file
 - All pages now responsive
+
+## 0.6 - 06/01/2019
+
+- Minor fix to home page
+- Signed up to MongoLab and put Soloista database there

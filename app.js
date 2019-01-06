@@ -23,7 +23,10 @@ var express           = require("express"),
     flash             = require('connect-flash'),
     stripe            = require("stripe")("sk_test_XWYQA8D09xYv2tHRcklTveuy");
 
-mongoose.connect("mongodb://localhost/soloista");
+require('dotenv').config({path: __dirname + '/.env'});
+
+var envUrl = process.env.MLABURL
+mongoose.connect(envUrl);
 app.use('/static', express.static('public'));
 // app.use("/rooms/static", express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -50,7 +53,7 @@ app.use(function(req, res, next) {
 });
 
 moment().format();
-require('dotenv').config({path: __dirname + '/.env'})
+
 
 app.set("view engine", "ejs");
 
