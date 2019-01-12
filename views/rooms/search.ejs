@@ -1,13 +1,13 @@
 <% include ../partials/header %>
 <% include ../partials/nav %>
 <% include ../partials/standardwidth %>
-<!----<section class="section-block image-section">
+<!---<section class="section-block image-section">
   <h1>Search results</h1>
 </section>---->
 <section class="d-flex breadcrumbs container-fluid section-narrow">
   <div class="breadcrumbs-items d-flex align-items-center justify-content-between">
     <p><a href="/">Home</a> &gt; Search results </p>
-    <p><a id="listviewlink" class="link-active" href="#"><i class="far fa-list-alt"></i> List view</a> | <a id="mapviewlink" href="#"><i class="fas fa-map-marked-alt"></i> Map view</a></p>
+    <p class="view-toggle"><a id="listviewlink" class="link-active" href="#"><i class="far fa-list-alt"></i> List view</a> | <a id="mapviewlink" href="#"><i class="fas fa-map-marked-alt"></i> Map view</a></p>
   </div>
 </section>
 <section id="listview" class="container section-block">
@@ -21,7 +21,7 @@
         <input type="text" id="datepicker" placeholder="<%= moment(dateQuery, "MM-DD-YYYY").format("dddd, D MMMM") %>"></input>
         </div>
       </div>
-      <div class="room-filter">
+      <div class="room-filter" id="price-filter">
         <h3>Price per hour:</h3>
         <p>
           <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">

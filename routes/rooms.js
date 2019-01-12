@@ -18,7 +18,9 @@ var upload = multer({ storage: imageStorage})
 
 // SEARCH ROUTE
 router.get("/search", function(req, res) {
-  req.app.locals.dateQuery = req.query.date.replace(/\//ig, "-");
+  if (req.query.date) {
+    req.app.locals.dateQuery = req.query.date.replace(/\//ig, "-");
+  }
   console.log(req.app.locals.dateQuery);
   Room.find({bookings: {$not: {$elemMatch: {$and: [{bookingDate: req.app.locals.dateQuery}, {bookedOut: true}]}}}}).populate("reviews").exec(function(err, foundRooms) {
     if(err) {

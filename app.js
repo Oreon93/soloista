@@ -135,7 +135,6 @@ app.post("/rooms/:id/book/:time", function(req, res) {
     }
     else {
       const token = req.body.stripeToken;
-      console.log(token);
       const charge = stripe.charges.create({
         amount: room.price_per_hour*100,
         currency: 'eur',

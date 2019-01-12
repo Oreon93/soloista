@@ -37,7 +37,7 @@
       <th>Price
       </th>
       <th>
-        €<%= room.price_per_hour %>0
+        €<%= room.price_per_hour %><%   if ((room.price_per_hour*10)%10 !== 0) { %>0<% }%>
       </th>
     </tr>
     </table>

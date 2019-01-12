@@ -92,3 +92,15 @@ CSS
 
 - Minor fix to home page
 - Signed up to MongoLab and put Soloista database there
+
+## 1.0 - 06/01/2019
+
+- Small bug fixes to deploy Soloista to Heroku
+- Launched!
+
+## 1.1 - 12/01/2019
+
+- Streamlined the mobile experience of the search page and improved formatting
+- Fixed a bug on the pay page
+- Reworded FAQs
+- More CSS reorganisation

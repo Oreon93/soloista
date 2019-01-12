@@ -1,6 +1,6 @@
 <% rooms.forEach(function(room) { %>
   <div class="row room-listing no-gutters">
-    <div class="col-4 room-link" style="overflow: hidden; background-color: #000;">
+    <div class="col-12 col-md-4 room-link" style="overflow: hidden; background-color: #000;">
       <a href="/rooms/<%= room.id %>">
         <div class="room-listing-image" style="background-image: url('/static/<%= room.picture %>')">
         </div>
@@ -8,7 +8,7 @@
       </a>
       <p class="room-link-text"><a href="/rooms/<%= room.id %>">More photos & reviews > </a></p>
     </div>
-    <div class="col-8 room-listing-information">
+    <div class="col-12 col-md-8 room-listing-information">
       <div class="row d-flex justify-content-between">
         <div class="main-room-info">
           <a href="/rooms/<%= room.id %>" class="room-name"><h3><%= room.name %></h3></a>
@@ -30,7 +30,7 @@
         <p><%= room.description %></p>
         <div class="row">
           <% for (i=0; i<12; i++) { %>
-          <div class="col-3">
+          <div class="col-3 time-slot-col">
             <% var roomBookings = bookings.find(function(booking) {
               return booking.id == room._id;
             });
